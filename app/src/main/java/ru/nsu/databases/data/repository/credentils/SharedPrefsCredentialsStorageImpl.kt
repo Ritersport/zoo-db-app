@@ -6,14 +6,14 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
 import ru.nsu.databases.domain.model.Credentials
-import ru.nsu.databases.domain.reposiroty.CredentialsRepository
+import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class SharedPrefsCredentialsRepositoryImpl @Inject constructor(
+class SharedPrefsCredentialsStorageImpl @Inject constructor(
     @ApplicationContext private val context: Context,
-) : CredentialsRepository {
+) : CredentialsStorage {
 
     private val sharedPrefs = context.getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE)
 

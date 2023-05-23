@@ -5,7 +5,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import ru.nsu.databases.domain.model.Credentials
 
-interface CredentialsRepository {
+interface CredentialsStorage {
 
     fun isLoggedIn(): Single<Boolean>
 
