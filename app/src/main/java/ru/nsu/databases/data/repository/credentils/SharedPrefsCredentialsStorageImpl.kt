@@ -11,17 +11,23 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class CredentialsRepositoryImpl @Inject constructor(
+class SharedPrefsCredentialsRepositoryImpl @Inject constructor(
     @ApplicationContext private val context: Context,
 ) : CredentialsRepository {
 
     private val sharedPrefs = context.getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE)
 
     override fun isLoggedIn(): Single<Boolean> = Single.just(
-        sharedPrefs.contains(CREDENTIALS_KEY)
+        isLoggedInBlocking()
     )
 
-    override fun saveCredentials(credentials: Credentials): Completable = Completable.create {
+    override fun isLoggedInBlocking(): Boolean = sharedPrefs.contains(CREDENTIALS_KEY)
+
+    override fun saveCredentials(credentials: Credentials): Completable =
+        Completable.fromAction { saveCredentialsBlocking(credentials) }
+
+
+    override fun saveCredentialsBlocking(credentials: Credentials) {
         sharedPrefs.edit().putString(CREDENTIALS_KEY, Gson().toJson(credentials)).apply()
     }
 
@@ -31,6 +37,14 @@ class CredentialsRepositoryImpl @Inject constructor(
         sharedPrefs.getString(CREDENTIALS_KEY, null),
         Credentials::class.java
     )
+
+    override fun clearCredentialsBlocking() = sharedPrefs.edit()
+        .clear()
+        .apply()
+
+
+    override fun clearCredentials(): Completable =
+        Completable.fromAction { clearCredentialsBlocking() }
 
     companion object {
 
