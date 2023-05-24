@@ -23,7 +23,7 @@
             android:padding="16dp">
 
             <com.google.android.material.textview.MaterialTextView
-                style="@style/TextAppearance.AppCompat.Headline"
+                style="@style/TextAppearance.Material3.HeadlineMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

@@ -6,8 +6,4 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-
-) : ViewModel() {
-
-
-}
+) : ViewModel()

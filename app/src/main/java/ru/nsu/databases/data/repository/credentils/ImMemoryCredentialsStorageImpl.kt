@@ -2,7 +2,7 @@ package ru.nsu.databases.data.repository.credentils
 
 import io.reactivex.Completable
 import io.reactivex.Single
-import ru.nsu.databases.domain.model.Credentials
+import ru.nsu.databases.domain.model.security.Credentials
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import javax.inject.Inject
 import javax.inject.Singleton

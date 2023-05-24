@@ -2,8 +2,6 @@ package ru.nsu.databases.ui.splash_screen
 
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import ru.nsu.databases.ui.base.BaseViewModel
 import ru.nsu.databases.ui.base.SingleLiveEvent
@@ -24,8 +22,7 @@ class SplashFragmentViewModel @Inject constructor(
 
     private fun checkCredentials() {
         credentialsStorage.isLoggedIn()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+            .setupDefaultSchedulers()
             .subscribe { loggedIn ->
                 if (loggedIn) {
                     _navEvent.update { SplashRoutes.ToMainScreen }

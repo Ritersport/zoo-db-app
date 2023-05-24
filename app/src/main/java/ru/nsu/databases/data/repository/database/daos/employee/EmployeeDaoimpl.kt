@@ -1,8 +1,11 @@
 package ru.nsu.databases.data.repository.database.daos.employee
 
-import ru.nsu.databases.data.repository.database.DatabaseConnectionProvider
+import io.reactivex.Completable
+import io.reactivex.Maybe
+import io.reactivex.Single
+import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.domain.model.zoo.Employee
-import java.sql.PreparedStatement
+import ru.nsu.databases.domain.model.zoo.Profession
 import javax.inject.Inject
 
 
@@ -10,40 +13,50 @@ class EmployeeDaoImpl @Inject constructor(
     private val connectionProvider: DatabaseConnectionProvider
 ) : EmployeeDao {
 
-    override fun getAll(): List<Employee> = connectionProvider.openConnection().use { connection ->
-        val statement = connection.createStatement()
-        val rs = statement.executeQuery("SELECT * FROM EMPLOYEES")
+    override fun getAll(): Single<List<Employee>> = Single.fromCallable(::getAllBlocking)
 
-        while (rs.next()) {
-            println(
-                rs.row.toString() + ". " + rs.getString("FIRST_NAME")
-                        + "\t" + rs.getString("LAST_NAME")
+    private fun getAllBlocking(): List<Employee> =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            val rawResult = statement.executeQuery(
+                "SELECT * FROM \"Employees\" JOIN (\n" +
+                        "      \tSELECT \"Id\" AS profession_id, \"Name\" AS profession_name\n" +
+                        "      \tFROM \"Professions\")\n" +
+                        "    \tON (\"Profession\" = profession_id)\n"
             )
+
+            val result: MutableList<Employee> = mutableListOf()
+            while (rawResult.next()) {
+                result.add(
+                    Employee(
+                        id = rawResult.getInt("Id"),
+                        gender = rawResult.getString("Gender"),
+                        name = rawResult.getString("First_name"),
+                        surname = rawResult.getString("Last_name"),
+                        patronymic = rawResult.getString("Patronymic"),
+                        birthDate = rawResult.getDate("Birthdate"),
+                        profession = Profession(
+                            id = rawResult.getInt("PROFESSION_ID"),
+                            name = rawResult.getString("PROFESSION_NAME")
+                        ),
+                        salary = rawResult.getInt("Salary"),
+                        dismissalDate = rawResult.getDate("Dismissal_date"),
+                        employmentDate = rawResult.getDate("Employment_date"),
+                    )
+                )
+            }
+            return result
         }
 
-        val sql = "select count(*) from EMPLOYEES"
-        val preStatement: PreparedStatement = connection.prepareStatement(sql)
-        val result = preStatement.executeQuery()
-        while (result.next()) {
-            val count = result.getInt(1)
-            println("Total number of records in EMP table: $count")
-        }
-
-        return emptyList()
+    override fun addOrUpdate(employee: Employee): Completable {
+        TODO("Not yet implemented")
     }
 
-
-    private companion object {
-        const val EMPLOYEE_QUERY = ""
-
-        const val ID_FIELD = "Id"
-        const val GENDER_FIELD = "Gender"
-        const val FIRST_NAME_FIELD = "First_name"
-        const val LAST_NAME_FIELD = "Last_name"
-        const val BIRTHDATE_FIELD = "Id"
-        const val PROFESSION_FIELD = "Id"
-        const val EMPLOYMENT_DATE_FIELD = "Id"
-        const val DISMISSAL_DATE_FIELD = "Id"
+    override fun getById(id: Int): Maybe<Employee> {
+        TODO("Not yet implemented")
     }
 
+    override fun removeById(id: Int): Completable {
+        TODO("Not yet implemented")
+    }
 }

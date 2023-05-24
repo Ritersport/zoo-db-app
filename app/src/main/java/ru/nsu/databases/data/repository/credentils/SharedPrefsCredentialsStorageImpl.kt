@@ -5,7 +5,7 @@ import com.google.gson.Gson
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.Completable
 import io.reactivex.Single
-import ru.nsu.databases.domain.model.Credentials
+import ru.nsu.databases.domain.model.security.Credentials
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import javax.inject.Inject
 import javax.inject.Singleton

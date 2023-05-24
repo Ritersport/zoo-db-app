@@ -1,14 +1,13 @@
 package ru.nsu.databases.ui.login_screen
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import oracle.net.aso.C03.e
-import ru.nsu.databases.data.repository.database.DatabaseConnectionProvider
-import ru.nsu.databases.domain.model.Credentials
+import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
+import ru.nsu.databases.domain.model.security.Credentials
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import ru.nsu.databases.ui.base.BaseViewModel
 import ru.nsu.databases.ui.base.SingleLiveEvent
+import ru.nsu.databases.ui.base.update
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,15 +21,19 @@ class LogInViewModel @Inject constructor(
 
     fun onSubmit(login: String, password: String) {
         connectionProvider.checkConnection(Credentials(login, password))
+            .setupDefaultSchedulers()
             .subscribe(
-                { connectionOpeningResult ->
-                    Log.e("LogInViewModel", "Connecton opening result $connectionOpeningResult")
-                },
-                { error ->
-                    Log.e("LogInViewModel", e.toString())
-                }
+                ::onConnectSuccess,
+                ::onError,
             ).unsubscribeOnCleared()
-//        _navEvent.update { LoginFragmentRoutes.ToMain }
     }
 
+    private fun onConnectSuccess(credentials: Credentials) {
+        credentialsStorage.saveCredentials(credentials)
+            .setupDefaultSchedulers()
+            .subscribe(
+                { _navEvent.update { LoginFragmentRoutes.ToMain } },
+                ::onError
+            ).unsubscribeOnCleared()
+    }
 }

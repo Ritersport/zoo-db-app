@@ -3,7 +3,7 @@ package ru.nsu.databases.domain.reposiroty
 
 import io.reactivex.Completable
 import io.reactivex.Single
-import ru.nsu.databases.domain.model.Credentials
+import ru.nsu.databases.domain.model.security.Credentials
 
 interface CredentialsStorage {
 

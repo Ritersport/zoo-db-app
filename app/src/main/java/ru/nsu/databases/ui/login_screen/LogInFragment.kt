@@ -3,7 +3,9 @@ package ru.nsu.databases.ui.login_screen
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentLoginBinding
 import ru.nsu.databases.ui.base.BaseFragment
 import ru.nsu.databases.ui.base.viewBinding
@@ -39,7 +41,9 @@ class LogInFragment : BaseFragment() {
     }
 
     private fun obtainNavEvent(event: LoginFragmentRoutes) = when (event) {
-        LoginFragmentRoutes.ToMain -> {}
+        LoginFragmentRoutes.ToMain -> {
+            findNavController().navigate(R.id.toMainScreen)
+        }
     }
 
 

@@ -5,13 +5,38 @@
     android:id="@+id/root_nav_graph"
     app:startDestination="@id/main_fragment">
 
-
     <fragment
         android:id="@+id/main_fragment"
         android:name="ru.nsu.databases.ui.main_screen.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/toEmployees"
+            app:destination="@id/employeeListFragment" />
+    </fragment>
     <action
         android:id="@+id/toMainScreen"
         app:destination="@id/main_fragment" />
+    <fragment
+        android:id="@+id/employeeListFragment"
+        android:name="ru.nsu.databases.ui.employees.list.EmployeeListFragment"
+        android:label="EmployeeListFragment"
+        tools:layout="@layout/fragment_employees_list">
+        <action
+            android:id="@+id/toAddEmployee"
+            app:destination="@id/addEmployeeFragment" />
+        <action
+            android:id="@+id/toEmployeeDetails"
+            app:destination="@id/employeeDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEmployeeFragment"
+        android:name="ru.nsu.databases.ui.employees.add.AddEmployeeFragment"
+        android:label="AddEmployeeFragment"
+        tools:layout="@layout/fragment_add_employee" />
+    <fragment
+        android:id="@+id/employeeDetailsFragment"
+        android:name="ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment"
+        android:label="EmployeeDetailsFragment"
+        tools:layout="@layout/fragment_employee_details" />
 </navigation>

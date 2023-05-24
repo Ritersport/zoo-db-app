@@ -1,7 +1,7 @@
-package ru.nsu.databases.data.repository.database
+package ru.nsu.databases.data.repository.database.connection_provider
 
 import io.reactivex.Single
-import ru.nsu.databases.domain.model.Credentials
+import ru.nsu.databases.domain.model.security.Credentials
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import java.sql.Connection
 import java.sql.DriverManager
@@ -16,28 +16,30 @@ class OracleDatabaseConnectionProviderImpl @Inject constructor(
     private val credentialsStorage: CredentialsStorage,
 ) : DatabaseConnectionProvider {
 
-    override fun checkConnection(credentials: Credentials): Single<Boolean> {
+    override fun checkConnection(credentials: Credentials): Single<Credentials> {
         Class.forName(ORACLE_JDBC_DRIVER)
 
+        return Single.fromCallable {
+            val timeZone: TimeZone = TimeZone.getTimeZone("GMT+7")
+            TimeZone.setDefault(timeZone)
+            Locale.setDefault(Locale.ENGLISH)
 
-        return Single.just(
-            runCatching {
+            DriverManager.getConnection(
+                URL.format(IP),
+                credentials.login,
+                credentials.password
+            )
 
-                val timeZone: TimeZone = TimeZone.getTimeZone("GMT+7")
-                TimeZone.setDefault(timeZone)
-                Locale.setDefault(Locale.ENGLISH)
-
-                DriverManager.getConnection(
-                    URL.format(IP),
-                    credentials.login,
-                    credentials.password
-                )
-            }.isSuccess
-        )
+            credentials
+        }
     }
 
     override fun openConnection(): Connection {
         Class.forName(ORACLE_JDBC_DRIVER)
+
+        val timeZone: TimeZone = TimeZone.getTimeZone("GMT+7")
+        TimeZone.setDefault(timeZone)
+        Locale.setDefault(Locale.ENGLISH)
 
         val creds = credentialsStorage.getCredentialsBlocking()
         return DriverManager.getConnection(
