@@ -1,6 +1,7 @@
 package ru.nsu.databases.ui.base
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.Completable
@@ -17,6 +18,9 @@ import javax.inject.Inject
 open class BaseViewModel @Inject constructor() : ViewModel() {
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
+
+    private val _showErrorDialog = SingleLiveEvent<Throwable>()
+    val showErrorDialog: LiveData<Throwable> = _showErrorDialog
 
     override fun onCleared() {
         super.onCleared()
@@ -49,5 +53,6 @@ open class BaseViewModel @Inject constructor() : ViewModel() {
 
     protected fun onError(e: Throwable) {
         Log.e("BaseViewModelHandler", e.stackTraceToString())
+        _showErrorDialog.update { e }
     }
 }

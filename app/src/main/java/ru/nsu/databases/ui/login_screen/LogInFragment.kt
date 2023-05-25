@@ -3,18 +3,20 @@ package ru.nsu.databases.ui.login_screen
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentLoginBinding
 import ru.nsu.databases.ui.base.BaseFragment
+import ru.nsu.databases.ui.base.SingleLiveEvent
 import ru.nsu.databases.ui.base.viewBinding
 import ru.nsu.databases.ui.utils.stringOrEmpty
 
 @AndroidEntryPoint
 class LogInFragment : BaseFragment() {
 
-    private val viewModel: LogInViewModel by viewModels()
+    override val viewModel: LogInViewModel by viewModels()
 
     override val binding by viewBinding { inflater, container ->
         FragmentLoginBinding.inflate(inflater, container, false)

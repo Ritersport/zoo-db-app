@@ -17,7 +17,7 @@ class SplashFragment : BaseFragment() {
         FragmentSplashBinding.inflate(inflater, container, false)
     }
 
-    private val viewModel: SplashFragmentViewModel by viewModels()
+    override val viewModel: SplashFragmentViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

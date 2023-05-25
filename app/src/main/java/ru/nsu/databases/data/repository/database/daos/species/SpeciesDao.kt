@@ -6,4 +6,6 @@ import ru.nsu.databases.domain.model.zoo.Specie
 interface SpeciesDao {
 
     fun getAll(): Single<List<Specie>>
+
+    fun getById(id: Int): Single<Specie>
 }

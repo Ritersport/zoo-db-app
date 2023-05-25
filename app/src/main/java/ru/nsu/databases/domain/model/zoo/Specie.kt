@@ -1,5 +1,9 @@
 package ru.nsu.databases.domain.model.zoo
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 class Specie(
     val id: Int,
     val name: String,
@@ -8,4 +12,4 @@ class Specie(
     val warmAviary: String,
     val reproductiveAgeMinMonth: Int,
     val reproductiveAgeMaxMonth: Int?,
-)
+): Parcelable

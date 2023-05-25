@@ -17,7 +17,7 @@ class MainFragment : BaseFragment() {
         FragmentMainBinding.inflate(inflater, container, false)
     }
 
-    private val viewModel: MainScreenViewModel by viewModels()
+    override val viewModel: MainScreenViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +31,9 @@ class MainFragment : BaseFragment() {
             findNavController().navigate(R.id.toEmployees)
         }
         toAnimals.setOnClickListener {
+            findNavController().navigate(R.id.toAnimals)
+        }
+        toFoods.setOnClickListener {
             findNavController().navigate(R.id.toAnimals)
         }
     }

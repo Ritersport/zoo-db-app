@@ -10,17 +10,14 @@ import ru.nsu.databases.data.repository.database.OracleZooDatabaseImpl
 import ru.nsu.databases.data.repository.database.ZooDatabase
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.data.repository.database.connection_provider.OracleDatabaseConnectionProviderImpl
-import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
-import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDaoImpl
-import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
-import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
-import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDao
-import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDaoImpl
-import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSettlingDao
 import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSettlingDaoImpl
+import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
+import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDaoImpl
 import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDao
 import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDaoImpl
+import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
+import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FeedInStockDao
 import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FeedInStockDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_rations.FeedRationDao
@@ -31,6 +28,11 @@ import ru.nsu.databases.data.repository.database.daos.feed_types.FeedTypesDao
 import ru.nsu.databases.data.repository.database.daos.feed_types.FeedTypesDaoImpl
 import ru.nsu.databases.data.repository.database.daos.genders.GendersDao
 import ru.nsu.databases.data.repository.database.daos.genders.GendersDaoImpl
+import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDao
+import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDaoImpl
+import ru.nsu.databases.data.repository.database.daos.species.SpeciesDao
+import ru.nsu.databases.data.repository.database.daos.species.SpeciesDaoImpl
+import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 
 
 @Module
@@ -72,6 +74,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindFeedRationDao(impl: FeedRationDaoImpl): FeedRationDao
+
+    @Binds
+    abstract fun bindSpeciesDao(impl: SpeciesDaoImpl): SpeciesDao
 
     companion object {
 

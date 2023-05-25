@@ -1,13 +1,16 @@
 package ru.nsu.databases.domain.model.zoo
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.util.Date
 
-class Animal (
+@Parcelize
+class Animal(
     val id: Int,
-    val kind: Int,
+    val kind: Specie,
     val name: String,
     val gender: Gender,
     val birthdate: Date?,
     val father: Int?,
     val mother: Int?
-)
+) : Parcelable

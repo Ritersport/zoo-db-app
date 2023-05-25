@@ -13,6 +13,9 @@
         <action
             android:id="@+id/toEmployees"
             app:destination="@id/employeeListFragment" />
+        <action
+            android:id="@+id/toAnimals"
+            app:destination="@id/animalsListFragment" />
     </fragment>
     <action
         android:id="@+id/toMainScreen"
@@ -39,4 +42,8 @@
         android:name="ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment"
         android:label="EmployeeDetailsFragment"
         tools:layout="@layout/fragment_employee_details" />
+    <fragment
+        android:id="@+id/animalsListFragment"
+        android:name="ru.nsu.databases.ui.animals.list.AnimalsListFragment"
+        android:label="AnimalsListFragment" />
 </navigation>

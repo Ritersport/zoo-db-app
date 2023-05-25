@@ -8,7 +8,7 @@ import ru.nsu.databases.ui.base.viewBinding
 
 @AndroidEntryPoint
 class AddEmployeeFragment : BaseFragment() {
-    private val viewModel: AddEmployeeViewModel by viewModels()
+    override val viewModel: AddEmployeeViewModel by viewModels()
 
     override val binding by viewBinding { inflater, container ->
         FragmentAddEmployeeBinding.inflate(inflater, container, false)

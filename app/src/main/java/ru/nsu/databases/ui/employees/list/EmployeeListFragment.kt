@@ -14,7 +14,7 @@ import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
 
 @AndroidEntryPoint
 class EmployeeListFragment : BaseFragment() {
-    private val viewModel: EmployeeListViewModel by viewModels()
+    override val viewModel: EmployeeListViewModel by viewModels()
 
     override val binding by viewBinding { inflater, container ->
         FragmentEmployeesListBinding.inflate(inflater, container, false)

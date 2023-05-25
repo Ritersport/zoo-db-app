@@ -12,7 +12,7 @@ import ru.nsu.databases.ui.base.viewBinding
 
 @AndroidEntryPoint
 class EmployeeDetailsFragment : BaseFragment() {
-    private val viewModel: EmployeeDetailsViewModel by viewModels()
+    override val viewModel: EmployeeDetailsViewModel by viewModels()
 
     override val binding by viewBinding { inflater, container ->
         FragmentEmployeeDetailsBinding.inflate(inflater, container, false)

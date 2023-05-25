@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-open class BaseFragment : Fragment(), ViewBindingHolder {
+abstract class BaseFragment : Fragment(), ViewBindingHolder {
     override var _viewBindingDelegate: ViewBindingDelegate<*>? = null
     protected open val binding: ViewBinding? = null
+
+    protected abstract val viewModel: BaseViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -18,5 +20,16 @@ open class BaseFragment : Fragment(), ViewBindingHolder {
     ): View? {
         return _viewBindingDelegate?.create(inflater, container)
             ?: super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.showErrorDialog.observe(viewLifecycleOwner, ::onErrorOccurred)
+
+    }
+
+    private fun onErrorOccurred(throwable: Throwable) {
+
     }
 }
