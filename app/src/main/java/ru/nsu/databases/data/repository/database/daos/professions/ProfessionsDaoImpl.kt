@@ -20,7 +20,7 @@ class ProfessionsDaoImpl @Inject constructor(
                 result.add(
                     Profession(
                         id = rawResult.getInt("Id"),
-                        name = rawResult.getString("Name")
+                        name = rawResult.getString("Name"),
                     )
                 )
             }
