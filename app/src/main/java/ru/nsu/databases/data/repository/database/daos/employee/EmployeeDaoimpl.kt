@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 
 class EmployeeDaoImpl @Inject constructor(
-    private val connectionProvider: DatabaseConnectionProvider
+    private val connectionProvider: DatabaseConnectionProvider,
 ) : EmployeeDao {
 
     override fun getAll(): Single<List<Employee>> = Single.fromCallable(::getAllBlocking)

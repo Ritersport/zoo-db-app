@@ -14,6 +14,8 @@ import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDaoImpl
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
+import ru.nsu.databases.data.repository.database.daos.genders.GendersDao
+import ru.nsu.databases.data.repository.database.daos.genders.GendersDaoImpl
 import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDao
 import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDaoImpl
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
@@ -38,13 +40,14 @@ abstract class DataModule {
     @Binds
     abstract fun bindProfessionsDao(impl: ProfessionsDaoImpl): ProfessionsDao
 
+    @Binds
+    abstract fun bindGendersDao(impl: GendersDaoImpl): GendersDao
+
     companion object {
 
         @Provides
         fun provideDatabase(connectionProvider: DatabaseConnectionProvider): ZooDatabase =
-            OracleZooDatabaseImpl(
-                connectionProvider = connectionProvider
-            )
+            OracleZooDatabaseImpl(connectionProvider = connectionProvider)
 
     }
 }
