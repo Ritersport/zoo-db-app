@@ -18,6 +18,8 @@ import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_supplies.FeedSuppliesDao
 import ru.nsu.databases.data.repository.database.daos.feed_supplies.FeedSuppliesDaoImpl
+import ru.nsu.databases.data.repository.database.daos.feed_types.FeedTypesDao
+import ru.nsu.databases.data.repository.database.daos.feed_types.FeedTypesDaoImpl
 import ru.nsu.databases.data.repository.database.daos.genders.GendersDao
 import ru.nsu.databases.data.repository.database.daos.genders.GendersDaoImpl
 import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDao
@@ -52,6 +54,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindFeedSuppliesDao(impl: FeedSuppliesDaoImpl): FeedSuppliesDao
+
+    @Binds
+    abstract fun bindFeedTypesDao(impl: FeedTypesDaoImpl): FeedTypesDao
 
     companion object {
 
