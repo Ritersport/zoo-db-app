@@ -14,6 +14,8 @@ import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSett
 import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSettlingDaoImpl
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDaoImpl
+import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDao
+import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDaoImpl
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FeedInStockDao
@@ -62,6 +64,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindFeedInStockDao(impl: FeedInStockDaoImpl): FeedInStockDao
+
+    @Binds
+    abstract fun bindDietTypeDao(impl: DietTypeDaoImpl): DietTypeDao
 
     companion object {
 
