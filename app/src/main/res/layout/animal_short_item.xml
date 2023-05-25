@@ -5,15 +5,14 @@
     style="@style/Widget.Material3.CardView.Outlined"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    tools:backgroundTint="#40FF0000">
+    android:layout_margin="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:paddingHorizontal="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -39,27 +38,27 @@
                 tools:text="Bobir" />
 
             <TextView
-                android:id="@+id/salary"
+                android:id="@+id/gender"
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="20000 P" />
+                tools:text="Male" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/warning"
             style="@style/TextAppearance.Material3.TitleMedium"
-            android:textColor="#FFFF0000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="Migration needed"
             android:textAlignment="center"
+            android:textColor="#FFFF0000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Migration needed" />
+            app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
