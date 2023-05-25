@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Maybe
 import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
+import ru.nsu.databases.data.repository.database.mappers.prepareForSqlStatement
 import ru.nsu.databases.domain.model.zoo.Employee
 import ru.nsu.databases.domain.model.zoo.Profession
 import javax.inject.Inject
@@ -60,10 +61,10 @@ class EmployeeDaoImpl @Inject constructor(
                         "'${employee.name}', " +
                         "'${employee.surname}'," +
                         "'${employee.patronymic}'," +
-                        "'06-MAR-2001'," +
+                        "'${employee.birthDate.prepareForSqlStatement()}'," +
                         "${employee.profession.id}," +
                         "${employee.salary}," +
-                        "'25-MAY-2023'," +
+                        "'${employee.employmentDate.prepareForSqlStatement()}'," +
                         "'null'); " +
                         "END;"
             )
