@@ -7,8 +7,10 @@ import ru.nsu.databases.data.repository.database.connection_provider.DatabaseCon
 import ru.nsu.databases.domain.model.zoo.Employee
 import ru.nsu.databases.domain.model.zoo.Profession
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
+@Singleton
 class EmployeeDaoImpl @Inject constructor(
     private val connectionProvider: DatabaseConnectionProvider,
 ) : EmployeeDao {
