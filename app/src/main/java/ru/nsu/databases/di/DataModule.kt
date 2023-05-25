@@ -10,6 +10,8 @@ import ru.nsu.databases.data.repository.database.OracleZooDatabaseImpl
 import ru.nsu.databases.data.repository.database.ZooDatabase
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.data.repository.database.connection_provider.OracleDatabaseConnectionProviderImpl
+import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSettlingDao
+import ru.nsu.databases.data.repository.database.daos.animal_settling.AnimalSettlingDaoImpl
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDaoImpl
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
@@ -42,6 +44,9 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindGendersDao(impl: GendersDaoImpl): GendersDao
+
+    @Binds
+    abstract fun bindAnimalSettlingDao(impl: AnimalSettlingDaoImpl): AnimalSettlingDao
 
     companion object {
 
