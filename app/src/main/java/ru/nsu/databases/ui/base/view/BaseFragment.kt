@@ -1,12 +1,12 @@
 package ru.nsu.databases.ui.base.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import ru.nsu.databases.ui.base.error_dialog.ErrorDialog
 import ru.nsu.databases.ui.base.progress_dialog.ZooProgressDialog
 
 
@@ -18,6 +18,9 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
 
     private val progressDialog by lazy {
         ZooProgressDialog()
+    }
+    private val errorDialog by lazy {
+        ErrorDialog()
     }
 
     override fun onCreateView(
@@ -47,6 +50,7 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
     }
 
     private fun onErrorOccurred(throwable: Throwable) {
-        Log.e("Error", throwable.stackTraceToString())
+        errorDialog.message = throwable.toString()
+        errorDialog.show(childFragmentManager, "Error dialog")
     }
 }

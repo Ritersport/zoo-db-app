@@ -3,6 +3,7 @@ package ru.nsu.databases.data.repository.database.connection_provider
 import io.reactivex.Single
 import ru.nsu.databases.domain.model.security.Credentials
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
+import java.lang.IllegalStateException
 import java.sql.Connection
 import java.sql.DriverManager
 import java.util.Locale
