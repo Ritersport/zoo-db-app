@@ -8,7 +8,6 @@ import ru.nsu.databases.domain.model.zoo.Animal
 import ru.nsu.databases.ui.base.BaseViewModel
 import ru.nsu.databases.ui.base.SingleLiveEvent
 import ru.nsu.databases.ui.base.update
-import ru.nsu.databases.ui.employees.list.EmployeesListDirections
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,9 +34,10 @@ class AnimalsListViewModel @Inject constructor(
             ).unsubscribeOnCleared()
     }
 
-    private fun onAnimalsResult(animals: List<Animal>) = _animals.update { animals.map { AnimalMigrationWrapper(it, false) } }
+    private fun onAnimalsResult(animals: List<Animal>) =
+        _animals.update { animals.map { AnimalMigrationWrapper(it, false) } }
 
-    fun onAnimalClicked(animal: Animal) {
-
+    fun onAnimalClicked(animal: Animal) = _navEvent.update {
+        AnimalsListDirections.ToAnimalDetails(animal)
     }
 }

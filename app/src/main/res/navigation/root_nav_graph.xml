@@ -45,5 +45,15 @@
     <fragment
         android:id="@+id/animalsListFragment"
         android:name="ru.nsu.databases.ui.animals.list.AnimalsListFragment"
-        android:label="AnimalsListFragment" />
+        android:label="AnimalsListFragment"
+        tools:layout="@layout/fragment_animals_list">
+        <action
+            android:id="@+id/toAnimalDetails"
+            app:destination="@id/animalDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/animalDetailsFragment"
+        android:name="ru.nsu.databases.ui.animals.details.AnimalDetailsFragment"
+        android:label="AnimalDetailsFragment"
+        tools:layout="@layout/fragment_animal_details"/>
 </navigation>

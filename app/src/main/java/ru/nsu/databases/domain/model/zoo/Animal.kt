@@ -10,7 +10,7 @@ class Animal(
     val kind: Specie,
     val name: String,
     val gender: Gender,
-    val birthdate: Date?,
-    val father: Int?,
-    val mother: Int?
+    val birthDate: Date?,
+    val father: AnimalParent?,
+    val mother: AnimalParent?
 ) : Parcelable

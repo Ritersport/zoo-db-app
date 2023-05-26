@@ -4,6 +4,6 @@ import ru.nsu.databases.domain.model.zoo.Animal
 
 sealed interface AnimalsListDirections {
 
-    object ToAddEmployee : AnimalsListDirections
-    class ToEmployeeDetails(val animal: Animal) : AnimalsListDirections
+    object ToAddAnimal : AnimalsListDirections
+    class ToAnimalDetails(val animal: Animal) : AnimalsListDirections
 }

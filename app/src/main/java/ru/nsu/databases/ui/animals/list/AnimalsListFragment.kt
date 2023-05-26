@@ -3,10 +3,13 @@ package ru.nsu.databases.ui.animals.list
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentAnimalsListBinding
 import ru.nsu.databases.ui.base.BaseFragment
 import ru.nsu.databases.ui.base.viewBinding
+import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
 
 @AndroidEntryPoint
 class AnimalsListFragment : BaseFragment() {
@@ -41,12 +44,14 @@ class AnimalsListFragment : BaseFragment() {
     }
 
     private fun obtainNavEvent(direction: AnimalsListDirections) = when (direction) {
-        AnimalsListDirections.ToAddEmployee -> {
+        AnimalsListDirections.ToAddAnimal -> {
 
         }
 
-        is AnimalsListDirections.ToEmployeeDetails -> {
-
+        is AnimalsListDirections.ToAnimalDetails -> {
+            findNavController().navigate(R.id.toAnimalDetails, Bundle().apply {
+                putParcelable(EmployeeDetailsFragment.ARGS_KEY, direction.animal)
+            })
         }
     }
 
