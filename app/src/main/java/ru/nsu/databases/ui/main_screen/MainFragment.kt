@@ -36,9 +36,14 @@ class MainFragment : BaseFragment() {
         toFoods.setOnClickListener {
             findNavController().navigate(R.id.toAnimals)
         }
+        logoutButton.setOnClickListener {
+            viewModel.onLogout()
+        }
     }
 
     private fun setupVmObservers() = viewModel.run {
-
+        navigateToLogin.observe(viewLifecycleOwner) {
+            findNavController().setGraph(R.navigation.start_nav_graph)
+        }
     }
 }

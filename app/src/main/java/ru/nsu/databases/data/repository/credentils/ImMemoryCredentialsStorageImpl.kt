@@ -12,9 +12,9 @@ class ImMemoryCredentialsStorageImpl @Inject constructor() : CredentialsStorage 
 
     private var credentials: Credentials? = null
 
-    override fun isLoggedIn(): Single<Boolean> = Single.just(isLoggedInBlocking())
+    override fun hasCredentials(): Single<Boolean> = Single.just(hasCredentialsBlocking())
 
-    override fun isLoggedInBlocking(): Boolean = credentials != null
+    override fun hasCredentialsBlocking(): Boolean = credentials != null
 
     override fun saveCredentials(credentials: Credentials): Completable =
         Completable.fromAction { saveCredentialsBlocking(credentials) }

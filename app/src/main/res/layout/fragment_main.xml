@@ -1,93 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    tools:context=".ui.main_screen.MainFragment">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/toEmployees"
-        style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_width="match_parent"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:text="LOGOUT"
+        app:iconGravity="end"
+        app:icon="@drawable/baseline_logout_24" />
 
-        <FrameLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context=".ui.main_screen.MainFragment">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toEmployees"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_margin="8dp">
 
-            <TextView
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="@string/employees" />
+                android:padding="16dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                tools:ignore="ContentDescription" />
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/employees" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/toAnimals"
-        style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toAnimals"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_margin="8dp">
 
-            <TextView
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="@string/animals" />
+                android:padding="16dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                tools:ignore="ContentDescription" />
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="@string/animals" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/toFoods"
-        style="@style/Widget.Material3.CardView.Elevated"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/toFoods"
+            style="@style/Widget.Material3.CardView.Elevated"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp">
+            android:layout_margin="8dp">
 
-            <TextView
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:text="Foods" />
+                android:padding="16dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:src="@drawable/baseline_keyboard_arrow_right_24"
-                tools:ignore="ContentDescription" />
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+                <TextView
+                    style="@style/TextAppearance.Material3.TitleMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:text="Foods" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</FrameLayout>

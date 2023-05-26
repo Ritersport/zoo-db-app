@@ -7,9 +7,9 @@ import ru.nsu.databases.domain.model.security.Credentials
 
 interface CredentialsStorage {
 
-    fun isLoggedIn(): Single<Boolean>
+    fun hasCredentials(): Single<Boolean>
 
-    fun isLoggedInBlocking(): Boolean
+    fun hasCredentialsBlocking(): Boolean
 
     fun saveCredentials(credentials: Credentials): Completable
 

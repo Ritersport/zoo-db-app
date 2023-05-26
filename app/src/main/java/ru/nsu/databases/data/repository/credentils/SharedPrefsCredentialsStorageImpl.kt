@@ -17,11 +17,11 @@ class SharedPrefsCredentialsStorageImpl @Inject constructor(
 
     private val sharedPrefs = context.getSharedPreferences(SHARED_PREFS_FILE, Context.MODE_PRIVATE)
 
-    override fun isLoggedIn(): Single<Boolean> = Single.just(
-        isLoggedInBlocking()
+    override fun hasCredentials(): Single<Boolean> = Single.just(
+        hasCredentialsBlocking()
     )
 
-    override fun isLoggedInBlocking(): Boolean = sharedPrefs.contains(CREDENTIALS_KEY)
+    override fun hasCredentialsBlocking(): Boolean = sharedPrefs.contains(CREDENTIALS_KEY)
 
     override fun saveCredentials(credentials: Credentials): Completable =
         Completable.fromAction { saveCredentialsBlocking(credentials) }

@@ -22,6 +22,7 @@ class LogInViewModel @Inject constructor(
     fun onSubmit(login: String, password: String) {
         connectionProvider.checkConnection(Credentials(login, password))
             .setupDefaultSchedulers()
+            .bindLoading()
             .subscribe(
                 ::onConnectSuccess,
                 ::onError,
