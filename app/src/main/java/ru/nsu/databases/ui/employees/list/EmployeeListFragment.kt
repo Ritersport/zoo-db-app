@@ -8,8 +8,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentEmployeesListBinding
 import ru.nsu.databases.domain.model.zoo.Employee
-import ru.nsu.databases.ui.base.BaseFragment
-import ru.nsu.databases.ui.base.viewBinding
+import ru.nsu.databases.ui.base.view.BaseFragment
+import ru.nsu.databases.ui.base.view.viewBinding
 import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
 
 @AndroidEntryPoint

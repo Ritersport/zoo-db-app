@@ -7,8 +7,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.databinding.FragmentEmployeeDetailsBinding
 import ru.nsu.databases.domain.model.zoo.Employee
-import ru.nsu.databases.ui.base.BaseFragment
-import ru.nsu.databases.ui.base.viewBinding
+import ru.nsu.databases.ui.base.view.BaseFragment
+import ru.nsu.databases.ui.base.view.viewBinding
 
 @AndroidEntryPoint
 class EmployeeDetailsFragment : BaseFragment() {

@@ -7,8 +7,8 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentMainBinding
-import ru.nsu.databases.ui.base.BaseFragment
-import ru.nsu.databases.ui.base.viewBinding
+import ru.nsu.databases.ui.base.view.BaseFragment
+import ru.nsu.databases.ui.base.view.viewBinding
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment() {

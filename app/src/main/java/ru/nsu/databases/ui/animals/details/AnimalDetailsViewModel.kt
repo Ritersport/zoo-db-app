@@ -2,7 +2,7 @@ package ru.nsu.databases.ui.animals.details
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.domain.model.zoo.Animal
-import ru.nsu.databases.ui.base.BaseViewModel
+import ru.nsu.databases.ui.base.view.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel

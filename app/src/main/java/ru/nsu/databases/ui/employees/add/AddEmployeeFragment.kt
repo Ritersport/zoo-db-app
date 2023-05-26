@@ -3,8 +3,8 @@ package ru.nsu.databases.ui.employees.add
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.databinding.FragmentAddEmployeeBinding
-import ru.nsu.databases.ui.base.BaseFragment
-import ru.nsu.databases.ui.base.viewBinding
+import ru.nsu.databases.ui.base.view.BaseFragment
+import ru.nsu.databases.ui.base.view.viewBinding
 
 @AndroidEntryPoint
 class AddEmployeeFragment : BaseFragment() {

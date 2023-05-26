@@ -1,4 +1,4 @@
-package ru.nsu.databases.ui.base
+package ru.nsu.databases.ui.base.view
 
 import android.view.LayoutInflater
 import android.view.View

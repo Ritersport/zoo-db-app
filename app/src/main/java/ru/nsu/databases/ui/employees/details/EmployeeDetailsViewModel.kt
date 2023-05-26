@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.domain.model.zoo.Employee
-import ru.nsu.databases.ui.base.BaseViewModel
-import ru.nsu.databases.ui.base.SingleLiveEvent
+import ru.nsu.databases.ui.base.view.BaseViewModel
+import ru.nsu.databases.ui.base.live_data.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel

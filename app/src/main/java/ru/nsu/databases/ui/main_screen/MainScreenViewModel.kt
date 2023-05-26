@@ -3,9 +3,9 @@ package ru.nsu.databases.ui.main_screen
 import androidx.lifecycle.LiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
-import ru.nsu.databases.ui.base.BaseViewModel
-import ru.nsu.databases.ui.base.SingleLiveEvent
-import ru.nsu.databases.ui.base.update
+import ru.nsu.databases.ui.base.view.BaseViewModel
+import ru.nsu.databases.ui.base.live_data.SingleLiveEvent
+import ru.nsu.databases.ui.base.live_data.update
 import javax.inject.Inject
 
 @HiltViewModel

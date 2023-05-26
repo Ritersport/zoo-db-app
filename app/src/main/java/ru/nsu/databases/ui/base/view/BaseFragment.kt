@@ -1,6 +1,5 @@
-package ru.nsu.databases.ui.base
+package ru.nsu.databases.ui.base.view
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater

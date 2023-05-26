@@ -1,4 +1,4 @@
-package ru.nsu.databases.ui.base
+package ru.nsu.databases.ui.base.live_data
 
 import android.util.Log
 import androidx.annotation.MainThread
