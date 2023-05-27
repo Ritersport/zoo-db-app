@@ -34,7 +34,7 @@ class MainFragment : BaseFragment() {
             findNavController().navigate(R.id.toAnimals)
         }
         toFoods.setOnClickListener {
-            findNavController().navigate(R.id.toAnimals)
+            findNavController().navigate(R.id.toSupply)
         }
         logoutButton.setOnClickListener {
             viewModel.onLogout()

@@ -16,7 +16,7 @@ class AnimalDetailsFragment : BaseFragment() {
 
     override val viewModel: AnimalDetailsViewModel by viewModels()
 
-    override val binding: FragmentAnimalDetailsBinding by viewBinding { inflater, container ->
+    override val binding by viewBinding { inflater, container ->
         FragmentAnimalDetailsBinding.inflate(inflater, container, false)
     }
 

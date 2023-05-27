@@ -95,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:text="Foods" />
+                    android:text="Food supplies" />
 
                 <ImageView
                     android:layout_width="wrap_content"

@@ -26,7 +26,7 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         return _viewBindingDelegate?.create(inflater, container)
             ?: super.onCreateView(inflater, container, savedInstanceState)
@@ -45,7 +45,9 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
             progressDialog.dialog?.setOnCancelListener { viewModel.onDismiss() }
             progressDialog.dialog?.setOnDismissListener { viewModel.onDismiss() }
         } else {
-            progressDialog.dismiss()
+            if (progressDialog.isAdded) {
+                progressDialog.dismiss()
+            }
         }
     }
 

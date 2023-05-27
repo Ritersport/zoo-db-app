@@ -62,10 +62,10 @@ open class BaseViewModel : ViewModel() {
         subscriptions.add(this)
     }
 
-    protected fun onError(e: Throwable) {
+    fun onError(e: Throwable) {
         _isLoading.update { false }
         _showErrorDialog.update { e }
-        Log.e("BaseViewModelHandler", e.stackTraceToString())
+        Log.e("BaseViewModelErrorHandler", e.stackTraceToString())
     }
 
     fun onDismiss() = subscriptions.clear()

@@ -16,6 +16,9 @@
         <action
             android:id="@+id/toAnimals"
             app:destination="@id/animalsListFragment" />
+        <action
+            android:id="@+id/toSupply"
+            app:destination="@id/supplyListFragment" />
     </fragment>
     <action
         android:id="@+id/toMainScreen"
@@ -55,5 +58,19 @@
         android:id="@+id/animalDetailsFragment"
         android:name="ru.nsu.databases.ui.animals.details.AnimalDetailsFragment"
         android:label="AnimalDetailsFragment"
-        tools:layout="@layout/fragment_animal_details"/>
+        tools:layout="@layout/fragment_animal_details" />
+    <fragment
+        android:id="@+id/supplyListFragment"
+        android:name="ru.nsu.databases.ui.supplies.list.SupplyListFragment"
+        android:label="SupplyListFragment"
+        tools:layout="@layout/fragment_supply_list">
+        <action
+            android:id="@+id/toAddSupply"
+            app:destination="@id/addSupplyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addSupplyFragment"
+        android:name="ru.nsu.databases.ui.supplies.add.AddSupplyFragment"
+        android:label="AddSupplyFragment"
+        tools:layout="@layout/fragment_add_supply" />
 </navigation>

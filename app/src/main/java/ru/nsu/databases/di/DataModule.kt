@@ -32,6 +32,8 @@ import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDao
 import ru.nsu.databases.data.repository.database.daos.professions.ProfessionsDaoImpl
 import ru.nsu.databases.data.repository.database.daos.species.SpeciesDao
 import ru.nsu.databases.data.repository.database.daos.species.SpeciesDaoImpl
+import ru.nsu.databases.data.repository.database.daos.vendor.VendorsDao
+import ru.nsu.databases.data.repository.database.daos.vendor.VendorsDaoImpl
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 
 
@@ -77,6 +79,10 @@ abstract class DataModule {
 
     @Binds
     abstract fun bindSpeciesDao(impl: SpeciesDaoImpl): SpeciesDao
+
+    @Binds
+    abstract fun bindVendorsDao(impl: VendorsDaoImpl): VendorsDao
+
 
     companion object {
 

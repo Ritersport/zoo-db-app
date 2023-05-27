@@ -14,7 +14,7 @@ import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
 @AndroidEntryPoint
 class AnimalsListFragment : BaseFragment() {
 
-    override val binding: FragmentAnimalsListBinding by viewBinding { inflater, container ->
+    override val binding by viewBinding { inflater, container ->
         FragmentAnimalsListBinding.inflate(inflater, container, false)
     }
 
