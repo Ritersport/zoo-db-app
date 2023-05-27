@@ -19,6 +19,9 @@ class AnimalsDaoImpl @Inject constructor(
     override fun getAllAsParent(specieId: Int): Single<List<AnimalParent>> =
         Single.fromCallable { getAllAsParentBlocking(specieId) }
 
+    override fun getWarmCageNeededAnimalIds(): Single<List<Int>> =
+        Single.fromCallable(::getWarmCageNeededAnimalIdsBlocking)
+
     private fun getAllAsParentBlocking(specieId: Int): List<AnimalParent> =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
@@ -83,6 +86,22 @@ class AnimalsDaoImpl @Inject constructor(
                         },
                     )
                 )
+            }
+            return result
+        }
+
+    private fun getWarmCageNeededAnimalIdsBlocking(): List<Int> =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            val rawResult = statement.executeQuery(
+                "SELECT *\n" +
+                        "FROM \"Animals\" JOIN \"Animal_spicies\" ON (\"Kind\" = \"Animal_spicies\".\"Id\")\n" +
+                        "WHERE (\"Warm_aviary\" = 'y') \n"
+            )
+
+            val result: MutableList<Int> = mutableListOf()
+            while (rawResult.next()) {
+                result.add(rawResult.getInt("Id"))
             }
             return result
         }

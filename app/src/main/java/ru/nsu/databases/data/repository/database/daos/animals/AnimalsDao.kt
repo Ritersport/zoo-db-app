@@ -8,4 +8,6 @@ interface AnimalsDao {
     fun getAll(): Single<List<Animal>>
 
     fun getAllAsParent(specieId: Int): Single<List<AnimalParent>>
+
+    fun getWarmCageNeededAnimalIds(): Single<List<Int>>
 }

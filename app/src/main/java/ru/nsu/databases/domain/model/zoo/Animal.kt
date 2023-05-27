@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import java.util.Date
 
 @Parcelize
-class Animal(
+data class Animal(
     val id: Int,
     val kind: Specie,
     val name: String,

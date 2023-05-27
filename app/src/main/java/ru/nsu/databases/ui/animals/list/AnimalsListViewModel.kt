@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
 import ru.nsu.databases.domain.model.zoo.Animal
-import ru.nsu.databases.ui.base.view.BaseViewModel
 import ru.nsu.databases.ui.base.live_data.SingleLiveEvent
 import ru.nsu.databases.ui.base.live_data.update
+import ru.nsu.databases.ui.base.view.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,6 +27,14 @@ class AnimalsListViewModel @Inject constructor(
 
     private fun loadAnimalsList() {
         animalsDao.getAll()
+            .zipWith(animalsDao.getWarmCageNeededAnimalIds()) { animals, ids ->
+                animals.map {
+                    AnimalMigrationWrapper(
+                        animal = it,
+                        migrationNeeded = (it.id in ids)
+                    )
+                }
+            }
             .setupDefaultSchedulers()
             .bindLoading()
             .subscribe(
@@ -35,8 +43,8 @@ class AnimalsListViewModel @Inject constructor(
             ).unsubscribeOnCleared()
     }
 
-    private fun onAnimalsResult(animals: List<Animal>) =
-        _animals.update { animals.map { AnimalMigrationWrapper(it, false) } }
+    private fun onAnimalsResult(animals: List<AnimalMigrationWrapper>) =
+        _animals.update { animals }
 
     fun onAnimalClicked(animal: Animal) = _navEvent.update {
         AnimalsListDirections.ToAnimalDetails(animal)
