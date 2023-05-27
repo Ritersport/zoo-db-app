@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.domain.model.zoo.Employee
-import ru.nsu.databases.ui.base.view.BaseViewModel
 import ru.nsu.databases.ui.base.live_data.SingleLiveEvent
 import ru.nsu.databases.ui.base.live_data.update
+import ru.nsu.databases.ui.base.view.BaseViewModel
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,6 +29,7 @@ class EmployeeListViewModel @Inject constructor(
     private fun loadEmployeeList() {
         employeeDao.getAll()
             .setupDefaultSchedulers()
+            .bindLoading()
             .subscribe(
                 ::onEmployeesResult,
                 ::onError,

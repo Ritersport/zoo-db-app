@@ -28,6 +28,7 @@ class AnimalsListViewModel @Inject constructor(
     private fun loadAnimalsList() {
         animalsDao.getAll()
             .setupDefaultSchedulers()
+            .bindLoading()
             .subscribe(
                 ::onAnimalsResult,
                 ::onError,
