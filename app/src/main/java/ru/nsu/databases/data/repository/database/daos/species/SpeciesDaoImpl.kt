@@ -11,7 +11,7 @@ class SpeciesDaoImpl @Inject constructor(
 ) : SpeciesDao {
 
     override fun getAll(): Single<List<Specie>> = Single.fromCallable(::getAllBlocking)
-    override fun getById(id: Int): Single<Specie> = Single.fromCallable{ getByIdBlocking(id) }
+    override fun getById(id: Int): Single<Specie> = Single.fromCallable { getByIdBlocking(id) }
 
     private fun getByIdBlocking(id: Int): Specie =
         connectionProvider.openConnection().use { connection ->
@@ -20,7 +20,7 @@ class SpeciesDaoImpl @Inject constructor(
                 statement.executeQuery("SELECT * FROM \"Animal_spicies\" JOIN (Select \"Id\" AS \"Nutrition_id\", \"Name\" AS \"Nutrition_Name\" FROM \"Nutrition_types\") ON (\"Nutrition_type\" = \"Nutrition_id\") WHERE (\"Id\" = $id)")
 
             rawResult.next()
-            return Specie(
+            Specie(
                 id = rawResult.getInt("Id"),
                 name = rawResult.getString("Name"),
                 nutritionType = NutritionType(
@@ -55,6 +55,6 @@ class SpeciesDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
 }

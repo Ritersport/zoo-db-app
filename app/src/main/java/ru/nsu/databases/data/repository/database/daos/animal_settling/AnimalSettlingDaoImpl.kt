@@ -2,20 +2,18 @@ package ru.nsu.databases.data.repository.database.daos.animal_settling
 
 import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
-import ru.nsu.databases.domain.model.zoo.Animal
 import ru.nsu.databases.domain.model.zoo.AnimalSettling
-import ru.nsu.databases.domain.model.zoo.Gender
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class AnimalSettlingDaoImpl @Inject constructor(
     val connectionProvider: DatabaseConnectionProvider,
-): AnimalSettlingDao {
+) : AnimalSettlingDao {
 
     override fun getAll(): Single<List<AnimalSettling>> = Single.fromCallable(::getAllBlocking)
 
-    private fun getAllBlocking(): List<AnimalSettling> {
+    private fun getAllBlocking(): List<AnimalSettling> =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             val rawResult = statement.executeQuery(
@@ -33,7 +31,6 @@ class AnimalSettlingDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
-    }
 }

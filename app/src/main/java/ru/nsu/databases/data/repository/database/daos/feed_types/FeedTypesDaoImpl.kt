@@ -12,7 +12,7 @@ class FeedTypesDaoImpl @Inject constructor(
 ) : FeedTypesDao {
     override fun getAll(): Single<List<FeedType>> = Single.fromCallable(::getAllBlocking)
 
-    private fun getAllBlocking(): List<FeedType> {
+    private fun getAllBlocking(): List<FeedType> =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             val rawResult = statement.executeQuery(
@@ -28,7 +28,7 @@ class FeedTypesDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
-    }
+
 }

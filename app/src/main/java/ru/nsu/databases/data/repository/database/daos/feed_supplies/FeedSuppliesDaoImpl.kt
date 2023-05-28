@@ -20,7 +20,7 @@ class FeedSuppliesDaoImpl @Inject constructor(
     override fun addSupply(supply: FeedSupply): Completable =
         Completable.fromAction { addSupplyBlocking(supply) }
 
-    private fun getAllBlocking(): List<FeedSupply> {
+    private fun getAllBlocking(): List<FeedSupply> =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             val rawResult = statement.executeQuery(
@@ -45,9 +45,9 @@ class FeedSuppliesDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
-    }
+
 
     private fun addSupplyBlocking(supply: FeedSupply) =
         connectionProvider.openConnection().use { connection ->

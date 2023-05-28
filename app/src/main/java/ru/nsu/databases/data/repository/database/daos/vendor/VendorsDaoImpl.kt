@@ -32,6 +32,6 @@ class VendorsDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
 }

@@ -25,6 +25,6 @@ class NutritionTypeDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
 }

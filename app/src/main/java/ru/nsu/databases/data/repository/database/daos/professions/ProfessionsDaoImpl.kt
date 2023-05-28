@@ -6,12 +6,12 @@ import ru.nsu.databases.domain.model.zoo.Profession
 import javax.inject.Inject
 
 class ProfessionsDaoImpl @Inject constructor(
-    private val connectionProvider: DatabaseConnectionProvider
+    private val connectionProvider: DatabaseConnectionProvider,
 ) : ProfessionsDao {
 
     override fun getAll(): Single<List<Profession>> = Single.fromCallable(::getAllBlocking)
 
-    private fun getAllBlocking(): List<Profession> {
+    private fun getAllBlocking(): List<Profession> =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             val rawResult = statement.executeQuery("SELECT * FROM \"Professions\" ")
@@ -24,7 +24,6 @@ class ProfessionsDaoImpl @Inject constructor(
                     )
                 )
             }
-            return result
+            result
         }
-    }
 }

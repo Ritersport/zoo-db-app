@@ -2,18 +2,18 @@ package ru.nsu.databases.data.repository.database.daos.feed_in_stock
 
 import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
-import ru.nsu.databases.domain.model.zoo.FeedInStock
+import ru.nsu.databases.domain.model.zoo.FoodInStock
 import ru.nsu.databases.domain.model.zoo.FeedType
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FeedInStockDaoImpl @Inject constructor(
+class FoodInStockDaoImpl @Inject constructor(
     val connectionProvider: DatabaseConnectionProvider,
-) : FeedInStockDao {
-    override fun getAll(): Single<List<FeedInStock>> = Single.fromCallable(::getAllBlocking)
+) : FoodInStockDao {
+    override fun getAll(): Single<List<FoodInStock>> = Single.fromCallable(::getAllBlocking)
 
-    private fun getAllBlocking(): List<FeedInStock> {
+    private fun getAllBlocking(): List<FoodInStock> {
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             val rawResult = statement.executeQuery(
@@ -23,10 +23,10 @@ class FeedInStockDaoImpl @Inject constructor(
                         "      \tON (\"Type\" = feed_type_id)\n"
             )
 
-            val result: MutableList<FeedInStock> = mutableListOf()
+            val result: MutableList<FoodInStock> = mutableListOf()
             while (rawResult.next()) {
                 result.add(
-                    FeedInStock(
+                    FoodInStock(
                         feedType = FeedType(
                             rawResult.getInt("feed_type_id"),
                             rawResult.getString("feed_type_name")

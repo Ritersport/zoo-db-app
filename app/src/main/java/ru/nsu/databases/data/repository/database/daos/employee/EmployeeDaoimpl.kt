@@ -44,7 +44,7 @@ class EmployeeDaoImpl @Inject constructor(
                     employmentDate = rawResult.getDate("Employment_date"),
                 ))
             }
-            return result
+            result
         }
 
     override fun addOrUpdate(employee: Employee): Completable = Completable.fromAction {

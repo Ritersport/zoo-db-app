@@ -20,10 +20,12 @@ class GendersDaoImpl @Inject constructor(
 
             val result: MutableList<Gender> = mutableListOf()
             while (rawResult.next()) {
-                result.add(Gender(
-                    name = rawResult.getString("Name"),
-                ))
+                result.add(
+                    Gender(
+                        name = rawResult.getString("Name"),
+                    )
+                )
             }
-            return result
+            result
         }
 }

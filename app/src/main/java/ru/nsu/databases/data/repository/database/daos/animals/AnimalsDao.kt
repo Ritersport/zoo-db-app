@@ -7,6 +7,8 @@ import ru.nsu.databases.domain.model.zoo.AnimalParent
 interface AnimalsDao {
     fun getAll(): Single<List<Animal>>
 
+    fun getById(id: Int): Single<Animal>
+
     fun getAllAsParent(specieId: Int): Single<List<AnimalParent>>
 
     fun getWarmCageNeededAnimalIds(): Single<List<Int>>

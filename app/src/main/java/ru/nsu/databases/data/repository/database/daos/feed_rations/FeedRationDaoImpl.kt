@@ -16,7 +16,7 @@ class FeedRationDaoImpl @Inject constructor(
 
     private fun getAllBlocking(): List<FeedRation> =
         connectionProvider.openConnection().use { connection ->
-            val statement = connectionProvider.openConnection().createStatement()
+            val statement = connection.createStatement()
             val rawResult = statement.executeQuery(
                 "SELECT * FROM (\"Feed_rations\" JOIN (\n" +
                         "SELECT  \"Id\" AS feed_type_id, \"Name\" AS feed_type_name \n" +

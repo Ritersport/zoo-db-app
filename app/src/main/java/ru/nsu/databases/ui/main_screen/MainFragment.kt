@@ -33,8 +33,11 @@ class MainFragment : BaseFragment() {
         toAnimals.setOnClickListener {
             findNavController().navigate(R.id.toAnimals)
         }
-        toFoods.setOnClickListener {
+        toSupplies.setOnClickListener {
             findNavController().navigate(R.id.toSupply)
+        }
+        toFood.setOnClickListener {
+            findNavController().navigate(R.id.toFoodStock)
         }
         logoutButton.setOnClickListener {
             viewModel.onLogout()

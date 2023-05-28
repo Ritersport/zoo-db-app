@@ -3,7 +3,9 @@ package ru.nsu.databases.ui.animals.details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentAnimalDetailsBinding
 import ru.nsu.databases.domain.model.zoo.Animal
 import ru.nsu.databases.domain.model.zoo.AnimalParent
@@ -38,11 +40,21 @@ class AnimalDetailsFragment : BaseFragment() {
         editButton.setOnClickListener { viewModel.onEdit() }
         fireButton.setOnClickListener { viewModel.onExchangeAnimal(initialAnimal) }
         saveButton.setOnClickListener { viewModel.onSaveChanges(initialAnimal) }
+        motherLayout.setOnClickListener { viewModel.onGoToParent(initialAnimal.mother!!) }
+        fatherLayout.setOnClickListener { viewModel.onGoToParent(initialAnimal.father!!) }
     }
 
 
     private fun setupVmObservers() = viewModel.run {
+        navEvent.observe(viewLifecycleOwner, ::obtainNavEvent)
+    }
 
+    private fun obtainNavEvent(direction: AnimalDetailsFragmentDirections) = when (direction) {
+        is AnimalDetailsFragmentDirections.ToParent -> findNavController().navigate(
+            R.id.toParent,
+            Bundle().apply {
+                putParcelable(EmployeeDetailsFragment.ARGS_KEY, direction.parent)
+            })
     }
 
     private fun setAnimal(animal: Animal) = binding.run {
@@ -50,7 +62,7 @@ class AnimalDetailsFragment : BaseFragment() {
         gender.setText(animal.gender.name)
         birthDate.setText(animal.birthDate.toString())
         nutritionType.setText(animal.kind.nutritionType.name)
-
+        kind.setText(animal.kind.name)
         setMotherInfo(animal.mother)
         setFatherInfo(animal.father)
     }

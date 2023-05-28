@@ -5,6 +5,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.nsu.databases.domain.reposiroty.CredentialsStorage
 import ru.nsu.databases.ui.base.view.BaseViewModel
 import ru.nsu.databases.ui.base.live_data.SingleLiveEvent
+import ru.nsu.databases.ui.base.live_data.push
 import ru.nsu.databases.ui.base.live_data.update
 import javax.inject.Inject
 
@@ -25,5 +26,5 @@ class MainScreenViewModel @Inject constructor(
             ).unsubscribeOnCleared()
     }
 
-    private fun onCredentialsCleared() = _navigateToLogin.update { Unit }
+    private fun onCredentialsCleared() = _navigateToLogin.push()
 }

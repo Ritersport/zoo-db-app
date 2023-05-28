@@ -18,8 +18,8 @@ import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDao
 import ru.nsu.databases.data.repository.database.daos.diet_type.DietTypeDaoImpl
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDao
 import ru.nsu.databases.data.repository.database.daos.employee.EmployeeDaoImpl
-import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FeedInStockDao
-import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FeedInStockDaoImpl
+import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FoodInStockDao
+import ru.nsu.databases.data.repository.database.daos.feed_in_stock.FoodInStockDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_rations.FeedRationDao
 import ru.nsu.databases.data.repository.database.daos.feed_rations.FeedRationDaoImpl
 import ru.nsu.databases.data.repository.database.daos.feed_supplies.FeedSuppliesDao
@@ -69,7 +69,7 @@ abstract class DataModule {
     abstract fun bindFeedTypesDao(impl: FeedTypesDaoImpl): FeedTypesDao
 
     @Binds
-    abstract fun bindFeedInStockDao(impl: FeedInStockDaoImpl): FeedInStockDao
+    abstract fun bindFeedInStockDao(impl: FoodInStockDaoImpl): FoodInStockDao
 
     @Binds
     abstract fun bindDietTypeDao(impl: DietTypeDaoImpl): DietTypeDao
