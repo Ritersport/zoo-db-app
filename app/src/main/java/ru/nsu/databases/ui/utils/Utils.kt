@@ -20,11 +20,11 @@ fun TextInputEditText.parseDate(): Date? {
 }
 
 
-inline fun <T : Fragment, reified I> AutoCompleteTextView.setItems(fragment: T, vendors: List<I>) =
+inline fun <T : Fragment, reified I> AutoCompleteTextView.setItems(fragment: T, items: List<I>) =
     setAdapter(
         ArrayAdapter(
             fragment.requireContext(),
             R.layout.string_adapter_layout,
-            vendors.toTypedArray()
+            items.toTypedArray()
         )
     )

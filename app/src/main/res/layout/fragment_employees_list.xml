@@ -13,15 +13,16 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="32dp"
         android:src="@drawable/baseline_person_add_24"
+        android:visibility="gone"
         tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/employee_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="10"
-        android:padding="8dp"
-        android:clipToPadding="false"
         tools:listitem="@layout/employee_short_item" />
 </FrameLayout>

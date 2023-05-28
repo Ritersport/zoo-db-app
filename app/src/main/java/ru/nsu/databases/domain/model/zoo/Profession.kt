@@ -7,4 +7,7 @@ import kotlinx.parcelize.Parcelize
 class Profession(
     val id: Int,
     val name: String,
-) : Parcelable
+) : Parcelable {
+
+    override fun toString(): String = name
+}

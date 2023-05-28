@@ -34,7 +34,7 @@ class AnimalsListFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setFragmentResultListener(AnimalFilterFragment.FILTER_REQUEST_KEY) { key, bundle ->
+        setFragmentResultListener(AnimalFilterFragment.FILTER_REQUEST_KEY) { _, bundle ->
             bundle.getParcelable<AnimalFilter>(AnimalFilterFragment.FILTER_KEY)?.let(
                 viewModel::setAnimalFilter
             )
@@ -54,10 +54,6 @@ class AnimalsListFragment : BaseFragment() {
     }
 
     private fun obtainNavEvent(direction: AnimalsListDirections) = when (direction) {
-        AnimalsListDirections.ToAddAnimal -> {
-
-        }
-
         is AnimalsListDirections.ToAnimalDetails -> {
             findNavController().navigate(R.id.toAnimalDetails, Bundle().apply {
                 putParcelable(EmployeeDetailsFragment.ARGS_KEY, direction.animal)

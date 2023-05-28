@@ -24,6 +24,8 @@ class AddSupplyViewModel @Inject constructor(
     private val _vendors = SingleLiveEvent<List<Vendor>>()
     val vendors: LiveData<List<Vendor>> = _vendors
 
+    var vendor: Vendor? = null
+
     init {
         loadVendors()
     }
@@ -50,4 +52,8 @@ class AddSupplyViewModel @Inject constructor(
     private fun onVendors(vendors: List<Vendor>) = _vendors.update { vendors }
 
     private fun onAddSupplySuccess() = _goBack.push()
+
+    fun onVendorSelected(vendor: Vendor?) {
+        this.vendor = vendor
+    }
 }

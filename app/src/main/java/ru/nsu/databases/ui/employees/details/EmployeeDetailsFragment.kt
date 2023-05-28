@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.databinding.FragmentEmployeeDetailsBinding
 import ru.nsu.databases.domain.model.zoo.Employee
@@ -35,11 +36,12 @@ class EmployeeDetailsFragment : BaseFragment() {
     private fun initEmployee() = binding.run {
         name.setText(initialEmployee.name)
         surname.setText(initialEmployee.surname)
-        patronymic.setText(initialEmployee.patronymic ?: "")
+        patronymic.setTextOrGone(initialEmployee.patronymic)
         birthDate.setText(initialEmployee.birthDate.toString())
         profession.setText(initialEmployee.profession.name)
         salary.setText(initialEmployee.salary.toString())
         employmentDate.setText(initialEmployee.employmentDate.toString())
+        dismissalDate.setTextOrGone(initialEmployee.dismissalDate?.toString())
     }
 
     private fun setupViewListeners() = binding.run {
@@ -61,6 +63,15 @@ class EmployeeDetailsFragment : BaseFragment() {
 
     private fun navigateBack(direction: Unit) {
         findNavController().popBackStack()
+    }
+
+    private fun TextInputEditText.setTextOrGone(text: String?) {
+        if (text == null) {
+            this.visibility = View.GONE
+        } else {
+            this.visibility = View.VISIBLE
+            this.setText(text)
+        }
     }
 
     companion object {

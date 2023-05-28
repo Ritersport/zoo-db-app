@@ -83,7 +83,7 @@ class AnimalsListViewModel @Inject constructor(
             if (it.animal.ageMonth == null) {
                 false
             } else {
-                it.animal.ageMonth!! > value
+                it.animal.ageMonth!! <= value
             }
         }
     }
@@ -94,7 +94,7 @@ class AnimalsListViewModel @Inject constructor(
             if (it.animal.ageMonth == null) {
                 false
             } else {
-                it.animal.ageMonth!! < value
+                it.animal.ageMonth!! >= value
             }
         }
     }

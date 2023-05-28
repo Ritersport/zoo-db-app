@@ -16,4 +16,10 @@ class Employee(
     val salary: Int,
     val dismissalDate: Date?,
     val employmentDate: Date,
-) : Parcelable
+) : Parcelable {
+
+    val ageYears: Int
+        get() = birthDate.time.let {
+            ((Date().time - it) / (1000L * 60 * 60 * 24 * 30 * 12)).toInt()
+        }
+}

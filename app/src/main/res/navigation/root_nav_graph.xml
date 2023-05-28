@@ -37,6 +37,9 @@
         <action
             android:id="@+id/toEmployeeDetails"
             app:destination="@id/employeeDetailsFragment" />
+        <action
+            android:id="@+id/toEmployeeFilter"
+            app:destination="@id/employeeFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/addEmployeeFragment"
@@ -97,4 +100,9 @@
         android:name="ru.nsu.databases.ui.animals.filter.AnimalFilterFragment"
         android:label="AnimalFilterFragment"
         tools:layout="@layout/fragment_animal_filter" />
+    <fragment
+        android:id="@+id/employeeFilterFragment"
+        android:name="ru.nsu.databases.ui.employees.filter.EmployeeFilterFragment"
+        android:label="EmployeeFilterFragment"
+        tools:layout="@layout/fragment_employee_filter" />
 </navigation>

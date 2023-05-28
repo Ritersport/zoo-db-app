@@ -39,6 +39,10 @@ class AddSupplyFragment : BaseFragment() {
                 }
             }
         }
+        vendors.setOnItemClickListener { adapter, _, position, _ ->
+            viewModel.onVendorSelected(adapter.getItemAtPosition(position) as? Vendor)
+            binding.add.isEnabled = true
+        }
     }
 
     private fun checkFields(): Boolean = binding.run {
@@ -51,18 +55,17 @@ class AddSupplyFragment : BaseFragment() {
 
 
     private fun collectSupply(): FeedSupply {
-        val vendor = viewModel.vendors.value!!.find {
-            it.organizationName == binding.vendors.text.toString()
-        }!!
 
         val supplyDate = binding.date.parseDate()
             ?: throw IllegalStateException("Failed to parse date, try dd.mm.yyyy format")
 
         return FeedSupply(
-            vendor = vendor,
+            vendor = viewModel.vendor ?: throw IllegalStateException("Select vendor"),
             supplyDate = supplyDate,
-            amount = binding.amount.text!!.toString().toInt(),
-            price = binding.price.text!!.toString().toInt()
+            amount = binding.amount.text?.toString()?.toInt()
+                ?: throw IllegalStateException("Illegal amount"),
+            price = binding.price.text?.toString()?.toInt()
+                ?: throw IllegalStateException("Illegal price"),
         )
     }
 
@@ -75,6 +78,5 @@ class AddSupplyFragment : BaseFragment() {
 
     private fun onVendors(vendor: List<Vendor>) = binding.run {
         vendors.setItems(this@AddSupplyFragment, vendor)
-        add.isEnabled = true
     }
 }
