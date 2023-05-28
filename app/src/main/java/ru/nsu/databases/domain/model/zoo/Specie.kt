@@ -12,4 +12,7 @@ class Specie(
     val warmAviary: String,
     val reproductiveAgeMinMonth: Int,
     val reproductiveAgeMaxMonth: Int?,
-): Parcelable
+) : Parcelable {
+
+    override fun toString(): String = name
+}

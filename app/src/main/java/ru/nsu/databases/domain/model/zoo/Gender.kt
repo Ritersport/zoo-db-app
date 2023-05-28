@@ -6,4 +6,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 class Gender(
     val name: String,
-) : Parcelable
+) : Parcelable {
+
+    override fun toString(): String = name
+}

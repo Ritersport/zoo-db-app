@@ -5,5 +5,5 @@ class Vendor(
     val organizationName: String,
     val feedType: FeedType,
 ) {
-    override fun toString(): String = organizationName
+    override fun toString(): String = "$organizationName (${feedType.name})"
 }

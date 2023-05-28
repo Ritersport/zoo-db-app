@@ -56,6 +56,9 @@
         <action
             android:id="@+id/toAnimalDetails"
             app:destination="@id/animalDetailsFragment" />
+        <action
+            android:id="@+id/toAnimalFilter"
+            app:destination="@id/animalFilterFragment" />
     </fragment>
     <fragment
         android:id="@+id/animalDetailsFragment"
@@ -89,4 +92,9 @@
             android:id="@+id/toAddSupplyFromFoods"
             app:destination="@id/addSupplyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/animalFilterFragment"
+        android:name="ru.nsu.databases.ui.animals.filter.AnimalFilterFragment"
+        android:label="AnimalFilterFragment"
+        tools:layout="@layout/fragment_animal_filter" />
 </navigation>

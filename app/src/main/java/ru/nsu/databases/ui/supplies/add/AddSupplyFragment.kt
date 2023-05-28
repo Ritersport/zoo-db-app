@@ -2,18 +2,16 @@ package ru.nsu.databases.ui.supplies.add
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentAddSupplyBinding
 import ru.nsu.databases.domain.model.zoo.FeedSupply
 import ru.nsu.databases.domain.model.zoo.Vendor
 import ru.nsu.databases.ui.base.view.BaseFragment
 import ru.nsu.databases.ui.base.view.viewBinding
 import ru.nsu.databases.ui.utils.parseDate
+import ru.nsu.databases.ui.utils.setItems
 
 @AndroidEntryPoint
 class AddSupplyFragment : BaseFragment() {
@@ -76,16 +74,7 @@ class AddSupplyFragment : BaseFragment() {
     }
 
     private fun onVendors(vendor: List<Vendor>) = binding.run {
-        vendors.setItems(vendor)
+        vendors.setItems(this@AddSupplyFragment, vendor)
         add.isEnabled = true
     }
-
-    private fun AutoCompleteTextView.setItems(vendors: List<Vendor>) =
-        setAdapter(
-            ArrayAdapter(
-                requireContext(),
-                R.layout.string_vendor_adapter,
-                vendors.toTypedArray()
-            )
-        )
 }

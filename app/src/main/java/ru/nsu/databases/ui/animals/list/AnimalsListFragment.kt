@@ -2,11 +2,14 @@ package ru.nsu.databases.ui.animals.list
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentAnimalsListBinding
+import ru.nsu.databases.ui.animals.filter.AnimalFilter
+import ru.nsu.databases.ui.animals.filter.AnimalFilterFragment
 import ru.nsu.databases.ui.base.view.BaseFragment
 import ru.nsu.databases.ui.base.view.viewBinding
 import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
@@ -22,8 +25,20 @@ class AnimalsListFragment : BaseFragment() {
 
     private val animalsAdapter by lazy {
         AnimalsAdapter(
-            viewModel::onAnimalClicked
+            viewModel::onAnimalClicked,
+            viewModel::onFilterClicked,
+            viewModel::onClearFilter,
         )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(AnimalFilterFragment.FILTER_REQUEST_KEY) { key, bundle ->
+            bundle.getParcelable<AnimalFilter>(AnimalFilterFragment.FILTER_KEY)?.let(
+                viewModel::setAnimalFilter
+            )
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,11 +46,6 @@ class AnimalsListFragment : BaseFragment() {
 
         binding.animalsList.adapter = animalsAdapter
         setupVmObservers()
-        setupViewListeners()
-    }
-
-    private fun setupViewListeners() = binding.run {
-
     }
 
     private fun setupVmObservers() = viewModel.run {
@@ -52,6 +62,10 @@ class AnimalsListFragment : BaseFragment() {
             findNavController().navigate(R.id.toAnimalDetails, Bundle().apply {
                 putParcelable(EmployeeDetailsFragment.ARGS_KEY, direction.animal)
             })
+        }
+
+        AnimalsListDirections.ToFilter -> {
+            findNavController().navigate(R.id.toAnimalFilter)
         }
     }
 

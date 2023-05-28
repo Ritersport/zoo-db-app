@@ -106,7 +106,7 @@ class AnimalsDaoImpl @Inject constructor(
                         name = rawResult.getString("Name"),
                         gender = Gender(rawResult.getString("Gender")),
                         birthDate = rawResult.getDate("Birthdate"),
-                        father = run {
+                        mother = run {
                             val motherId = rawResult.getInt("Mother_id")
                             val motherName = rawResult.getString("Mother_name")
                             val motherKind = rawResult.getInt("Mother_kind")
@@ -119,7 +119,7 @@ class AnimalsDaoImpl @Inject constructor(
                                 )
                             } else null
                         },
-                        mother = run {
+                        father = run {
                             val fatherId = rawResult.getInt("Father_id")
                             val fatherName = rawResult.getString("Father_name")
                             val fatherKind = rawResult.getInt("Father_kind")

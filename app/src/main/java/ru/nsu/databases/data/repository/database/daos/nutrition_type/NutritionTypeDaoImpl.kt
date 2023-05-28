@@ -4,7 +4,9 @@ import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.domain.model.zoo.NutritionType
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class NutritionTypeDaoImpl @Inject constructor(
     private val connectionProvider: DatabaseConnectionProvider,
 ) : NutritionTypeDao {
