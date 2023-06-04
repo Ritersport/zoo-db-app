@@ -2,8 +2,10 @@ package ru.nsu.databases.data.repository.database.daos.species
 
 import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
+import ru.nsu.databases.domain.model.zoo.IncompatibleSpecies
 import ru.nsu.databases.domain.model.zoo.NutritionType
 import ru.nsu.databases.domain.model.zoo.Specie
+import ru.nsu.databases.domain.model.zoo.SpecieShort
 import javax.inject.Inject
 
 class SpeciesDaoImpl @Inject constructor(
@@ -12,6 +14,26 @@ class SpeciesDaoImpl @Inject constructor(
 
     override fun getAll(): Single<List<Specie>> = Single.fromCallable(::getAllBlocking)
     override fun getById(id: Int): Single<Specie> = Single.fromCallable { getByIdBlocking(id) }
+    override fun getIncompatibleSpecies(): Single<List<IncompatibleSpecies>> =
+        Single.fromCallable(::getIncompatibleSpeciesBlocking)
+
+    private fun getIncompatibleSpeciesBlocking(): List<IncompatibleSpecies> =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            val rawResult =
+                statement.executeQuery("SELECT * FROM \"Incompatible_species\" JOIN (SELECT \"Id\" AS \"Id_1\", \"Name\" AS \"Name_1\" FROM \"Animal_spicies\") ON (\"Kind_1\" = \"Id_1\") JOIN (SELECT \"Id\" AS \"Id_2\", \"Name\" AS \"Name_2\" FROM \"Animal_spicies\") ON (\"Kind_2\" = \"Id_2\") ")
+
+            val result: MutableList<IncompatibleSpecies> = mutableListOf()
+            while (rawResult.next()) {
+                result.add(
+                    IncompatibleSpecies(
+                        specie1 = SpecieShort(rawResult.getString("Name_1")),
+                        specie2 = SpecieShort(rawResult.getString("Name_2")),
+                    )
+                )
+            }
+            result
+        }
 
     private fun getByIdBlocking(id: Int): Specie =
         connectionProvider.openConnection().use { connection ->

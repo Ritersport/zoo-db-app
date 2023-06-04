@@ -22,6 +22,9 @@
         <action
             android:id="@+id/toFoodStock"
             app:destination="@id/foodInStockListFragment" />
+        <action
+            android:id="@+id/toHelp"
+            app:destination="@id/helpMainFragment" />
     </fragment>
     <action
         android:id="@+id/toMainScreen"
@@ -97,4 +100,18 @@
         android:name="ru.nsu.databases.ui.employees.filter.EmployeeFilterFragment"
         android:label="EmployeeFilterFragment"
         tools:layout="@layout/fragment_employee_filter" />
+    <fragment
+        android:id="@+id/helpMainFragment"
+        android:name="ru.nsu.databases.ui.help.main.HelpMainFragment"
+        android:label="HelpMainFragment"
+        tools:layout="@layout/fragment_help_main">
+        <action
+            android:id="@+id/toAnimalCompatibility"
+            app:destination="@id/compatibilityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/compatibilityFragment"
+        android:name="ru.nsu.databases.ui.help.animal_compatibility.CompatibilityFragment"
+        android:label="CompatibilityFragment"
+        tools:layout="@layout/fragment_help_compatibility" />
 </navigation>

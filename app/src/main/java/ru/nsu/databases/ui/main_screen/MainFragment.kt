@@ -39,6 +39,9 @@ class MainFragment : BaseFragment() {
         toFood.setOnClickListener {
             findNavController().navigate(R.id.toFoodStock)
         }
+        helpButton.setOnClickListener {
+            findNavController().navigate(R.id.toHelp)
+        }
         logoutButton.setOnClickListener {
             viewModel.onLogout()
         }
