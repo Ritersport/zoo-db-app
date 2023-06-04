@@ -24,5 +24,4 @@ class AnimalViewHolder(
     } else {
         this.warning.visibility = View.GONE
     }
-
 }

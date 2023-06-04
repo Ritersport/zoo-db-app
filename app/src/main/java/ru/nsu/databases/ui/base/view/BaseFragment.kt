@@ -19,9 +19,6 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
     private val progressDialog by lazy {
         ZooProgressDialog()
     }
-    private val errorDialog by lazy {
-        ErrorDialog()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,7 +49,6 @@ abstract class BaseFragment : Fragment(), ViewBindingHolder {
     }
 
     private fun onErrorOccurred(throwable: Throwable) {
-        errorDialog.message = throwable.toString()
-        errorDialog.show(childFragmentManager, "Error dialog")
+        ErrorDialog(throwable.toString()).show(childFragmentManager, "Error dialog")
     }
 }

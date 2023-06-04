@@ -13,7 +13,6 @@
         android:layout_gravity="end|bottom"
         android:layout_margin="32dp"
         android:src="@drawable/baseline_person_add_24"
-        android:visibility="gone"
         tools:ignore="ContentDescription" />
 
     <androidx.recyclerview.widget.RecyclerView

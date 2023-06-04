@@ -10,9 +10,11 @@ interface EmployeeDao {
 
     fun getAll(): Single<List<Employee>>
 
-    fun addOrUpdate(employee: Employee): Completable
+    fun add(employee: Employee): Completable
 
     fun getById(id: Int): Maybe<Employee>
+
+    fun update(employee: Employee): Completable
 
     fun removeById(id: Int): Completable
 

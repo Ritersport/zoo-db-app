@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import ru.nsu.databases.databinding.ErrorDialogBinding
 
-class ErrorDialog : DialogFragment() {
-
+class ErrorDialog(
     var message: String? = null
+) : DialogFragment() {
+
+
 
     private var binding: ErrorDialogBinding? = null
 

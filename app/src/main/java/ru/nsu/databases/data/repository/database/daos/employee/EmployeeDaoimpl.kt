@@ -6,6 +6,7 @@ import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.data.repository.database.mappers.prepareForSqlStatement
 import ru.nsu.databases.domain.model.zoo.Employee
+import ru.nsu.databases.domain.model.zoo.Gender
 import ru.nsu.databases.domain.model.zoo.Profession
 import java.util.Date
 import javax.inject.Inject
@@ -34,7 +35,7 @@ class EmployeeDaoImpl @Inject constructor(
                 result.add(
                     Employee(
                         id = rawResult.getInt("Id"),
-                        gender = rawResult.getString("Gender"),
+                        gender = Gender(rawResult.getString("Gender")),
                         name = rawResult.getString("First_name"),
                         surname = rawResult.getString("Last_name"),
                         patronymic = rawResult.getString("Patronymic"),
@@ -52,11 +53,33 @@ class EmployeeDaoImpl @Inject constructor(
             result
         }
 
-    override fun addOrUpdate(employee: Employee): Completable = Completable.fromAction {
-        addOrUpdateBlocking(employee)
+    override fun update(employee: Employee): Completable = Completable.fromAction {
+        updateBlocking(employee)
     }
 
-    private fun addOrUpdateBlocking(employee: Employee) =
+    private fun updateBlocking(employee: Employee) =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            statement.executeQuery(
+                "UPDATE \"Employees\" SET " +
+                        "\"Gender\"='${employee.gender}', " +
+                        "\"First_name\"='${employee.name}', " +
+                        "\"Last_name\"='${employee.surname}', " +
+                        "\"Patronymic\"='${employee.patronymic}', " +
+                        "\"Birthdate\"='${employee.birthDate.prepareForSqlStatement()}', " +
+                        "\"Profession\"=${employee.profession.id}, " +
+                        "\"Salary\"=${employee.salary}, " +
+                        "\"Employment_date\"='${employee.birthDate.prepareForSqlStatement()}' " +
+                        "WHERE " +
+                        "\"Id\"=${employee.id}\n"
+            )
+        }
+
+    override fun add(employee: Employee): Completable = Completable.fromAction {
+        addBlocking(employee)
+    }
+
+    private fun addBlocking(employee: Employee) =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()
             statement.executeQuery(

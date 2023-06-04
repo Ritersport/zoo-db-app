@@ -61,9 +61,6 @@ class EmployeeListFragment : BaseFragment() {
     }
 
     private fun obtainNavEvent(direction: EmployeesListDirections) = when (direction) {
-        EmployeesListDirections.ToAddEmployee -> {
-            findNavController().navigate(R.id.toAddEmployee)
-        }
 
         is EmployeesListDirections.ToEmployeeDetails -> {
             findNavController().navigate(R.id.toEmployeeDetails, Bundle().apply {
@@ -73,6 +70,10 @@ class EmployeeListFragment : BaseFragment() {
 
         EmployeesListDirections.ToFilter -> {
             findNavController().navigate(R.id.toEmployeeFilter)
+        }
+
+        EmployeesListDirections.ToAddEmployee -> {
+            findNavController().navigate(R.id.toEmployeeDetails)
         }
     }
 

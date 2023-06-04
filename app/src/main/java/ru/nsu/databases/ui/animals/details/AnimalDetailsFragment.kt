@@ -12,6 +12,7 @@ import ru.nsu.databases.domain.model.zoo.AnimalParent
 import ru.nsu.databases.ui.base.view.BaseFragment
 import ru.nsu.databases.ui.base.view.viewBinding
 import ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment
+import ru.nsu.databases.ui.utils.toUiDateSting
 
 @AndroidEntryPoint
 class AnimalDetailsFragment : BaseFragment() {
@@ -60,7 +61,7 @@ class AnimalDetailsFragment : BaseFragment() {
     private fun setAnimal(animal: Animal) = binding.run {
         name.setText(animal.name)
         gender.setText(animal.gender.name)
-        birthDate.setText(animal.birthDate.toString())
+        birthDate.setText(animal.birthDate?.toUiDateSting())
         nutritionType.setText(animal.kind.nutritionType.name)
         kind.setText(animal.kind.name)
         setMotherInfo(animal.mother)

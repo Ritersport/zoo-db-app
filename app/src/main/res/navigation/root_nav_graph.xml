@@ -32,20 +32,12 @@
         android:label="EmployeeListFragment"
         tools:layout="@layout/fragment_employees_list">
         <action
-            android:id="@+id/toAddEmployee"
-            app:destination="@id/addEmployeeFragment" />
-        <action
             android:id="@+id/toEmployeeDetails"
             app:destination="@id/employeeDetailsFragment" />
         <action
             android:id="@+id/toEmployeeFilter"
             app:destination="@id/employeeFilterFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/addEmployeeFragment"
-        android:name="ru.nsu.databases.ui.employees.add.AddEmployeeFragment"
-        android:label="AddEmployeeFragment"
-        tools:layout="@layout/fragment_add_employee" />
     <fragment
         android:id="@+id/employeeDetailsFragment"
         android:name="ru.nsu.databases.ui.employees.details.EmployeeDetailsFragment"

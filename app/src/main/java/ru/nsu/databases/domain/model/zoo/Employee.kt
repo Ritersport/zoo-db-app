@@ -7,7 +7,7 @@ import java.util.Date
 @Parcelize
 class Employee(
     val id: Int,
-    val gender: String,
+    val gender: Gender,
     val name: String,
     val surname: String,
     val patronymic: String?,
@@ -22,4 +22,7 @@ class Employee(
         get() = birthDate.time.let {
             ((Date().time - it) / (1000L * 60 * 60 * 24 * 30 * 12)).toInt()
         }
+
+    val isDismissed: Boolean
+        get() = (dismissalDate != null)
 }
