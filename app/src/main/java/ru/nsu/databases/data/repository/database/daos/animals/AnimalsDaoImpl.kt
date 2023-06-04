@@ -24,6 +24,72 @@ class AnimalsDaoImpl @Inject constructor(
     override fun getWarmCageNeededAnimalIds(): Single<List<Int>> =
         Single.fromCallable(::getWarmCageNeededAnimalIdsBlocking)
 
+    override fun getMoveNeeded(): Single<List<Pair<Animal, Animal>>> =
+        Single.fromCallable(::getMoveNeededBlocking)
+
+    private fun getMoveNeededBlocking(): List<Pair<Animal, Animal>> =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            val rawResult = statement.executeQuery(
+                "SELECT \"Animal\", \"Neighbor\"\n" +
+                        "FROM\n" +
+                        "(   \n" +
+                        "   SELECT \"Animal\", \"Kind\", \"Neighbor\", \"Neighbor_kind\"\n" +
+                        "   FROM\n" +
+                        "   (\n" +
+                        "  \tSELECT \"Animal\", \"Kind\", \"Aviary\", \"Neighbor_aviary\"  \n" +
+                        "  \tFROM\n" +
+                        "  \t(\n" +
+                        "     \t   SELECT \"Animal\", \"Kind\", \"Aviary\", \"Neighbor_aviary\"\n" +
+                        "     \t   FROM \"Animals\" JOIN\n" +
+                        "     \t   (\n" +
+                        "            \tSELECT \"Animal\", \"Aviary\", \"Aviary_1\" AS \"Neighbor_aviary\"\n" +
+                        "           \tFROM \"Animal_settling\" LEFT JOIN \"Neighboring_aviaries\"\n" +
+                        "           \tON (\"Aviary\" = \"Aviary_2\")\n" +
+                        "           \tWHERE ((\"Settling_end_date\" IS NULL) AND (\"Aviary_1\" IS      NOT NULL))\n" +
+                        "     \t   ) \n" +
+                        "        ON (\"Animal\" = \"Id\")\n" +
+                        "         )\n" +
+                        "        UNION\n" +
+                        "        (\n" +
+                        "     \tSELECT \"Animal\", \"Kind\", \"Aviary\", \"Neighbor_aviary\"\n" +
+                        "     \tFROM \"Animals\" JOIN\n" +
+                        "     \t(\n" +
+                        "             SELECT \"Animal\", \"Aviary\", \"Aviary_2\" AS \"Neighbor_aviary\"\n" +
+                        "        \t   FROM \"Animal_settling\" LEFT JOIN \"Neighboring_aviaries\"\n" +
+                        "        \t   ON (\"Aviary\" = \"Aviary_1\")\n" +
+                        "              WHERE (\"Settling_end_date\" IS NULL AND (\"Aviary_2\" IS NOT NULL))\n" +
+                        "     \t) ON (\"Animal\" = \"Id\")\n" +
+                        "        )\n" +
+                        "   ) JOIN\n" +
+                        "   (\n" +
+                        "  \tSELECT \"Animal\" AS \"Neighbor\", \"Aviary\" AS \"A1\", \"Kind\" AS \"Neighbor_kind\"\n" +
+                        "  \tFROM\n" +
+                        "  \t(\n" +
+                        "    \t\"Animal_settling\" JOIN \"Animals\"\n" +
+                        "    \tON (\"Animal\" = \"Id\")\n" +
+                        "  \t)\n" +
+                        "  \tWHERE (\"Settling_end_date\" IS NULL)\n" +
+                        "   ) ON (\"Neighbor_aviary\" = \"A1\")\n" +
+                        "   WHERE (\"Animal\" < \"Neighbor\")\n" +
+                        ") JOIN \"Incompatible_species\"\n" +
+                        "ON (\"Kind_1\" = \"Animal\" OR \"Kind_2\" = \"Animal\")\n" +
+                        "\n" +
+                        "WHERE ((\"Neighbor_kind\" = \"Kind_1\" AND \"Kind\" = \"Kind_2\") OR (\"Neighbor_kind\" = \"Kind_2\" AND \"Kind\" = \"Kind_1\"))\n"
+            )
+
+            val result: MutableList<Pair<Animal, Animal>> = mutableListOf()
+            while (rawResult.next()) {
+                result.add(
+                    Pair(
+                        first = getByIdBlocking(rawResult.getInt("Animal")),
+                        second = getByIdBlocking(rawResult.getInt("Neighbor")),
+                    )
+                )
+            }
+            result
+        }
+
     private fun getByIdBlocking(id: Int): Animal =
         connectionProvider.openConnection().use { connection ->
             val statement = connection.createStatement()

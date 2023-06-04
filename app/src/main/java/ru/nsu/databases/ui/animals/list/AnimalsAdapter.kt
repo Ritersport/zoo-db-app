@@ -15,7 +15,7 @@ class AnimalsAdapter(
     private val onClearFilter: () -> Unit = {},
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    var items: List<AnimalMigrationWrapper> = emptyList()
+    var items: List<AnimalWrapper> = emptyList()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value

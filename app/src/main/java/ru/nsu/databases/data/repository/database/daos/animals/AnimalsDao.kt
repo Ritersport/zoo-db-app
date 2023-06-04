@@ -12,4 +12,6 @@ interface AnimalsDao {
     fun getAllAsParent(specieId: Int): Single<List<AnimalParent>>
 
     fun getWarmCageNeededAnimalIds(): Single<List<Int>>
+
+    fun getMoveNeeded(): Single<List<Pair<Animal, Animal>>>
 }

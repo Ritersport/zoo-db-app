@@ -3,6 +3,7 @@ package ru.nsu.databases.ui.animals.list
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.daos.animals.AnimalsDao
 import ru.nsu.databases.domain.model.zoo.Animal
 import ru.nsu.databases.domain.model.zoo.Gender
@@ -19,28 +20,32 @@ class AnimalsListViewModel @Inject constructor(
     private val animalsDao: AnimalsDao,
 ) : BaseViewModel() {
 
-    private val _animals: MutableLiveData<List<AnimalMigrationWrapper>> = MutableLiveData()
-    val animals: LiveData<List<AnimalMigrationWrapper>> = _animals
+    private val _animals: MutableLiveData<List<AnimalWrapper>> = MutableLiveData()
+    val animals: LiveData<List<AnimalWrapper>> = _animals
 
     private val _navEvent = SingleLiveEvent<AnimalsListDirections>()
     val navEvent: LiveData<AnimalsListDirections> = _navEvent
 
-    private var allAnimals: List<AnimalMigrationWrapper>? = null
+    private var allAnimals: List<AnimalWrapper>? = null
 
     init {
         loadAnimalsList()
     }
 
     private fun loadAnimalsList() {
-        animalsDao.getAll()
-            .zipWith(animalsDao.getWarmCageNeededAnimalIds()) { animals, ids ->
-                animals.map {
-                    AnimalMigrationWrapper(
-                        animal = it,
-                        migrationNeeded = (it.id in ids)
-                    )
-                }
+        Single.zip(
+            animalsDao.getAll(),
+            animalsDao.getWarmCageNeededAnimalIds(),
+            animalsDao.getMoveNeeded(),
+        ) { animals, ids, move ->
+            animals.map { animal ->
+                AnimalWrapper(
+                    animal = animal,
+                    warmNeeded = (animal.id in ids),
+                    incompatibleNeighbour = move.find { it.first.id == animal.id }?.second
+                )
             }
+        }
             .setupDefaultSchedulers()
             .bindLoading()
             .subscribe(
@@ -49,7 +54,7 @@ class AnimalsListViewModel @Inject constructor(
             ).unsubscribeOnCleared()
     }
 
-    private fun onAnimalsResult(animals: List<AnimalMigrationWrapper>) =
+    private fun onAnimalsResult(animals: List<AnimalWrapper>) =
         _animals.update {
             allAnimals = animals
             animals
@@ -72,12 +77,12 @@ class AnimalsListViewModel @Inject constructor(
 
     fun onClearFilter() = setAnimalFilter(AnimalFilter.Empty)
 
-    private fun List<AnimalMigrationWrapper>.filterByKind(value: Specie?): List<AnimalMigrationWrapper> {
+    private fun List<AnimalWrapper>.filterByKind(value: Specie?): List<AnimalWrapper> {
         if (value == null) return this
         return this.filter { it.animal.kind.id == value.id }
     }
 
-    private fun List<AnimalMigrationWrapper>.filterByMaxAge(value: Int?): List<AnimalMigrationWrapper> {
+    private fun List<AnimalWrapper>.filterByMaxAge(value: Int?): List<AnimalWrapper> {
         if (value == null) return this
         return this.filter {
             if (it.animal.ageMonth == null) {
@@ -88,7 +93,7 @@ class AnimalsListViewModel @Inject constructor(
         }
     }
 
-    private fun List<AnimalMigrationWrapper>.filterByMinAge(value: Int?): List<AnimalMigrationWrapper> {
+    private fun List<AnimalWrapper>.filterByMinAge(value: Int?): List<AnimalWrapper> {
         if (value == null) return this
         return this.filter {
             if (it.animal.ageMonth == null) {
@@ -99,12 +104,12 @@ class AnimalsListViewModel @Inject constructor(
         }
     }
 
-    private fun List<AnimalMigrationWrapper>.filterByGender(value: Gender?): List<AnimalMigrationWrapper> {
+    private fun List<AnimalWrapper>.filterByGender(value: Gender?): List<AnimalWrapper> {
         if (value == null) return this
         return this.filter { it.animal.gender.name == value.name }
     }
 
-    private fun List<AnimalMigrationWrapper>.filterByNutritionType(value: NutritionType?): List<AnimalMigrationWrapper> {
+    private fun List<AnimalWrapper>.filterByNutritionType(value: NutritionType?): List<AnimalWrapper> {
         if (value == null) return this
         return this.filter { it.animal.kind.nutritionType.id == value.id }
     }

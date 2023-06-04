@@ -65,7 +65,7 @@ class AnimalsListFragment : BaseFragment() {
         }
     }
 
-    private fun onAnimalsList(animals: List<AnimalMigrationWrapper>) {
+    private fun onAnimalsList(animals: List<AnimalWrapper>) {
         animalsAdapter.items = animals
     }
 }
