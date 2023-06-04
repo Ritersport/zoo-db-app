@@ -53,6 +53,7 @@ class EmployeeDetailsFragment : BaseFragment() {
     }
 
     private fun setupViewListeners() = binding.run {
+        deleteButton.setOnClickListener { viewModel.onDelete() }
         editButton.setOnClickListener { viewModel.setEditState() }
         fireButton.setOnClickListener { viewModel.onFireEmployee() }
         saveButton.setOnClickListener {
@@ -223,6 +224,7 @@ class EmployeeDetailsFragment : BaseFragment() {
         patronymicLayout.visibility = View.VISIBLE
         dismissalDateLayout.visibility = View.GONE
 
+        deleteButton.visibility = View.GONE
         fireButton.visibility = View.GONE
         saveButton.visibility = View.VISIBLE
         editButton.visibility = View.GONE
@@ -241,7 +243,8 @@ class EmployeeDetailsFragment : BaseFragment() {
 
         patronymicLayout.visibility = View.VISIBLE
         dismissalDateLayout.isVisible = (viewModel.employee.value?.isDismissed == true)
-        patronymicLayout.isVisible = (viewModel.employee.value?.patronymic != null)
+
+        deleteButton.visibility = View.GONE
         fireButton.visibility = View.GONE
         saveButton.visibility = View.VISIBLE
         editButton.visibility = View.GONE
@@ -263,10 +266,12 @@ class EmployeeDetailsFragment : BaseFragment() {
         dismissalDateLayout.isVisible = (viewModel.employee.value?.isDismissed == true)
 
         if (viewModel.employee.value?.isDismissed == true) {
+            deleteButton.visibility = View.VISIBLE
             fireButton.visibility = View.GONE
             saveButton.visibility = View.GONE
             editButton.visibility = View.GONE
         } else {
+            deleteButton.visibility = View.GONE
             fireButton.visibility = View.VISIBLE
             saveButton.visibility = View.GONE
             editButton.visibility = View.VISIBLE

@@ -101,7 +101,16 @@ class EmployeeDaoImpl @Inject constructor(
 
     override fun getById(id: Int): Maybe<Employee> = Maybe.empty()
 
-    override fun removeById(id: Int): Completable = Completable.complete()
+    override fun removeById(id: Int): Completable =
+        Completable.fromAction { removeByIdBlocking(id) }
+
+    private fun removeByIdBlocking(id: Int) =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            statement.executeQuery(
+                "DELETE FROM \"Employees\" WHERE \"Id\"=$id"
+            )
+        }
 
     override fun fireEmployeeById(id: Int, dismissalDate: Date): Completable =
         Completable.fromAction {
