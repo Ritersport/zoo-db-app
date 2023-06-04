@@ -99,6 +99,7 @@ class EmployeeDetailsViewModel @Inject constructor(
                         ::onError,
                     ).unsubscribeOnCleared()
             }
+
             DetailsState.Edit -> {
                 employeeDao.update(employee)
                     .setupDefaultSchedulers()
@@ -108,6 +109,7 @@ class EmployeeDetailsViewModel @Inject constructor(
                         ::onError,
                     ).unsubscribeOnCleared()
             }
+
             else -> {}
         }
     }
@@ -128,4 +130,17 @@ class EmployeeDetailsViewModel @Inject constructor(
     fun onGenderSelected(gender: Gender?) {
         selectedGender = gender
     }
+
+    fun onDelete() = _employee.value?.let {
+        employeeDao.removeById(it.id)
+            .setupDefaultSchedulers()
+            .bindLoading()
+            .subscribe(
+                ::onDeleted,
+                ::onError,
+            )
+            .unsubscribeOnCleared()
+    }
+
+    private fun onDeleted() = _navEvent.push()
 }
