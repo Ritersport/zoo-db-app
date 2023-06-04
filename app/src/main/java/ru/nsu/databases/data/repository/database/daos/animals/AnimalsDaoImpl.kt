@@ -1,10 +1,13 @@
 package ru.nsu.databases.data.repository.database.daos.animals
 
+import io.reactivex.Completable
 import io.reactivex.Single
 import ru.nsu.databases.data.repository.database.connection_provider.DatabaseConnectionProvider
 import ru.nsu.databases.data.repository.database.daos.species.SpeciesDao
+import ru.nsu.databases.data.repository.database.mappers.prepareForSqlStatement
 import ru.nsu.databases.domain.model.zoo.Animal
 import ru.nsu.databases.domain.model.zoo.AnimalParent
+import ru.nsu.databases.domain.model.zoo.Employee
 import ru.nsu.databases.domain.model.zoo.Gender
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -88,6 +91,47 @@ class AnimalsDaoImpl @Inject constructor(
                 )
             }
             result
+        }
+
+    override fun add(animal: Animal) = Completable.fromAction {
+        addBlocking(animal)
+    }
+
+    private fun addBlocking(animal: Animal) =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            statement.executeQuery(
+                "INSERT INTO " +
+                        "\"Animals\" VALUES ( 0, " +
+                        "'${animal.kind.id}', " +
+                        "'${animal.name}', " +
+                        "'${animal.gender}'," +
+                        "'${animal.birthDate?.prepareForSqlStatement()}'," +
+                        "${animal.father?.id}," +
+                        "${animal.mother?.id}," +
+                        "); "
+            )
+        }
+
+
+    override fun update(animal: Animal) = Completable.fromAction {
+        updateBlocking(animal);
+    }
+
+    private fun updateBlocking(animal: Animal) =
+        connectionProvider.openConnection().use { connection ->
+            val statement = connection.createStatement()
+            statement.executeQuery(
+                "UPDATE \"Animals\" SET " +
+                        "\"Gender\"='${animal.gender}', " +
+                        "\"Name\"='${animal.name}', " +
+                        "\"Kind\"=${animal.kind.id}, " +
+                        "\"Birthdate\"='${animal.birthDate?.prepareForSqlStatement()}', " +
+                        "\"Father\"=${animal.father?.id}, " +
+                        "\"Mother\"=${animal.mother?.id} " +
+                        "WHERE " +
+                        "\"Id\"=${animal.id} "
+            )
         }
 
     private fun getByIdBlocking(id: Int): Animal =

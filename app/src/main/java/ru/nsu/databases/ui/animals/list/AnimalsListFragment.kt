@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.nsu.databases.R
 import ru.nsu.databases.databinding.FragmentAnimalsListBinding
+import ru.nsu.databases.ui.animals.details.AnimalDetailsFragment
 import ru.nsu.databases.ui.animals.filter.AnimalFilter
 import ru.nsu.databases.ui.animals.filter.AnimalFilterFragment
 import ru.nsu.databases.ui.base.view.BaseFragment
@@ -46,6 +47,7 @@ class AnimalsListFragment : BaseFragment() {
 
         binding.animalsList.adapter = animalsAdapter
         setupVmObservers()
+        viewModel.refreshAnimals()
     }
 
     private fun setupVmObservers() = viewModel.run {
@@ -56,7 +58,7 @@ class AnimalsListFragment : BaseFragment() {
     private fun obtainNavEvent(direction: AnimalsListDirections) = when (direction) {
         is AnimalsListDirections.ToAnimalDetails -> {
             findNavController().navigate(R.id.toAnimalDetails, Bundle().apply {
-                putParcelable(EmployeeDetailsFragment.ARGS_KEY, direction.animal)
+                putParcelable(AnimalDetailsFragment.ARGS_KEY, direction.animal)
             })
         }
 

@@ -113,4 +113,25 @@ class AnimalsListViewModel @Inject constructor(
         if (value == null) return this
         return this.filter { it.animal.kind.nutritionType.id == value.id }
     }
+
+    fun refreshAnimals() {
+        Single.zip(
+            animalsDao.getAll(),
+            animalsDao.getWarmCageNeededAnimalIds(),
+            animalsDao.getMoveNeeded(),
+        ) { animals, ids, move ->
+            animals.map { animal ->
+                AnimalWrapper(
+                    animal = animal,
+                    warmNeeded = (animal.id in ids),
+                    incompatibleNeighbour = move.find { it.first.id == animal.id }?.second
+                )
+            }
+        }
+            .setupDefaultSchedulers()
+            .subscribe(
+                ::onAnimalsResult,
+                ::onError,
+            ).unsubscribeOnCleared()
+    }
 }
